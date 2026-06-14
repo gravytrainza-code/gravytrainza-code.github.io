@@ -61,6 +61,7 @@
   #start #cheat{padding:8px 10px;border-radius:8px;border:2px solid #2a3a5a;background:#142036;color:#fff;font-family:monospace;width:150px;text-align:center;font-size:14px;}
   #start #cheatmsg{color:#3fd07a;font-size:12px;margin-left:8px;font-weight:800;}
   #start #playbtn{height:58px;padding:0 46px;border-radius:14px;border:none;background:#007a4d;color:#fff;font-size:22px;font-weight:900;box-shadow:0 6px 0 #045236;}
+  #start #playcount{display:none;margin:0 auto 12px;width:fit-content;font-size:13px;font-weight:800;color:#ffd23b;background:rgba(255,210,59,.12);border:1px solid rgba(255,210,59,.35);border-radius:20px;padding:5px 16px;letter-spacing:.4px;}
   #start .ctrl{font-size:11px;color:#7e93b8;margin-top:14px;}
   #mute{position:absolute;top:46px;right:12px;width:34px;height:34px;border-radius:9px;background:rgba(20,24,40,.5);border:2px solid rgba(255,255,255,.45);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:20;}
 </style>
@@ -90,6 +91,7 @@
         <div><img src="assets/spr/boss.png"><span>THE GUPTAS<small>state capture</small></span></div>
       </div>
       <div class="cheatrow"><input id="cheat" placeholder="cheat code…" autocomplete="off" spellcheck="false"/><span id="cheatmsg"></span></div>
+      <div id="playcount"></div>
       <button id="playbtn">▶ PLAY</button>
       <p class="ctrl">◀ ▶ move · RUN to sprint · JUMP · bump R-boxes &amp; VOTE for loot · stomp enemies</p>
     </div>
@@ -613,9 +615,10 @@
   function boot(){try{
     var tb=g('test');if(tb)tb.style.display='none';
     resize();updHUD();buildLives();updZone();g('ld').style.display='none';
-    function go(){if(started)return;started=true;var s=g('start');if(s)s.classList.remove('show');AUD.startMusic();requestAnimationFrame(loop);}
+    function go(){if(started)return;started=true;try{if(window.fetch)window.fetch('https://abacus.jasoncameron.dev/hit/gravytrainza/plays').catch(function(){});}catch(e){}var s=g('start');if(s)s.classList.remove('show');AUD.startMusic();requestAnimationFrame(loop);}
     var mb=g('mute');if(mb)mb.addEventListener('click',function(){mb.textContent=AUD.toggle()?'🔇':'🔊';});
     var pb=g('playbtn');if(pb){pb.addEventListener('click',go);pb.addEventListener('touchstart',function(e){e.preventDefault();go();});}
+    try{if(window.fetch)window.fetch('https://abacus.jasoncameron.dev/get/gravytrainza/plays').then(function(r){return r.json();}).then(function(d){var pc=g('playcount');if(pc&&d&&typeof d.value==='number'){pc.textContent='🎮 Played '+d.value.toLocaleString()+(d.value===1?' time':' times');pc.style.display='block';}}).catch(function(){});}catch(e){}
     var ci=g('cheat');if(ci)ci.addEventListener('input',function(){var v=(ci.value||'').trim().toLowerCase();if(v==='$uma'||v==='suma'){setGod();g('cheatmsg').textContent='∞ INVINCIBLE';}else{g('cheatmsg').textContent='';}});
     var st=g('start');if(st)st.classList.add('show');
   }catch(e){showErr(e);}}
