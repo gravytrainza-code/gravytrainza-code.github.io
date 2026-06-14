@@ -80,9 +80,9 @@
       <img id="heroimg" src="assets/bg/startart.jpg" alt=""/>
       <h1>GRAVY<span> TRAIN</span></h1>
       <p class="tag">Cape Town's great loot run 🚂💰</p>
-      <p class="goal">You're the big chief <b>$uma</b>. Loot every scam across Cape Town — the <b>Arms Deal</b>, <b>Gupta tenders</b>, <b>Eskom</b>, <b>SARS</b>, the <b>Estina dairy</b>. Dodge the Commission, the red berets, the roadblock shakedowns and the N1 traffic. Beat the <b>state-capture Guptas</b>, grab the key, and stuff the loot in the <b>couch</b> — then the party wins the election anyway. 🇿🇦</p>
+      <p class="goal">You're President <b>Cyril</b>. Loot every scam across Cape Town — the <b>Arms Deal</b>, <b>Gupta tenders</b>, <b>Eskom</b>, <b>SARS</b>, the <b>Estina dairy</b>. Dodge the Commission, the red berets, the roadblock shakedowns and the N1 traffic. Beat the <b>state-capture Guptas</b>, grab the key, and stuff the loot in the <b>couch</b> — then the party wins the election anyway. 🇿🇦</p>
       <div class="roster">
-        <div><img src="assets/spr/prez.png"><span>$UMA<small>you</small></span></div>
+        <div><img src="assets/spr/prez.png"><span>CYRIL<small>you</small></span></div>
         <div><img src="assets/spr/inspector.png"><span>INSPECTOR<small>the watchdog</small></span></div>
         <div><img src="assets/spr/enemy.png"><span>MR C<small>the reporter</small></span></div>
         <div><img src="assets/spr/protester.png"><span>CITIZENS<small>stone throwers</small></span></div>
@@ -154,7 +154,7 @@
     {a:132,b:172,name:'TOWNSHIP'},
     {a:172,b:216,name:'N1 HIGHWAY'},
     {a:216,b:258,name:'PARLIAMENT'},
-    {a:258,b:292,name:'NKANDLA'}
+    {a:258,b:292,name:'PHALA PHALA'}
   ];
   var COLS=292, ROWS=18, grid=[];
   var N1A=172,N1B=216,MANA=258;  // zone-specific ground styling (road / marble)
@@ -197,7 +197,7 @@
     // floating reward platforms — each gets an intermediate STEP below it if it's >3 tiles up, so it's always reachable
     [[14,7,3],[30,6,2],[60,8,3],[78,6,2],[104,7,3],[122,6,2],[150,8,3],[166,6,2],[192,7,2]].forEach(function(q){var c0=q[0],r=q[1],len=q[2],t=gtop(c0);if(t==null)return;for(var i=0;i<len;i++){set(c0+i,r,'=');coins.push({c:c0+i,r:r-1});}if(t-r>=4){var sr=Math.min(t-3,r+3);set(c0-1,sr,'=');coins.push({c:c0-1,r:sr-1});}});
     // Every loot 'R' block = a unique documented state-capture / ANC-era scandal (public record). All placed 4 tiles up = bumpable & reachable.
-    [[22,"ARMS DEAL"],[38,"VBS BANK"],[56,"SARS WARS"],[72,"TRANSNET"],[98,"PRASA RAIL"],[116,"ESKOM COAL"],[136,"ESTINA DAIRY"],[170,"GUPTA TENDERS"],[186,"ROAD TENDERS"],[228,"BOSASA"],[234,"NKANDLA"],[266,"DIGITAL VIBES"]].forEach(function(L){var c=L[0],t=gtop(c);if(t==null)return;var r=Math.max(4,t-3);set(c,r,'L');lootBlocks.push({c:c,r:r,left:6,label:L[1]});});
+    [[22,"ARMS DEAL"],[38,"VBS BANK"],[56,"SARS WARS"],[72,"TRANSNET"],[98,"PRASA RAIL"],[116,"ESKOM COAL"],[136,"ESTINA DAIRY"],[170,"GUPTA TENDERS"],[186,"ROAD TENDERS"],[228,"BOSASA"],[234,"CR17 FUNDS"],[266,"DIGITAL VIBES"]].forEach(function(L){var c=L[0],t=gtop(c);if(t==null)return;var r=Math.max(4,t-3);set(c,r,'L');lootBlocks.push({c:c,r:r,left:6,label:L[1]});});
     // ===== SUPER-MARIO-STYLE MECHANICS =====
     // (A) BRANCHING — optional high "rooftop" route (Muizenberg): riskier climb, bonus coins, a reporter patrols it; the street below always works
     set(64,8,'=');set(65,8,'=');                                    // step up off the street
@@ -225,7 +225,7 @@
     sgn(90,'MOUILLE POINT');prop(112,'deckchair');prop(126,'ballot');
     sgn(134,'ESKOM');prop(140,'solar');haz(146,'coal');prop(156,'inverter');haz(162,'wire');prop(168,'solar');sgn(158,'LOAD SHEDDING');
     sgn(172,'N1 NORTH');prop(214,'tender');
-    sgn(220,'PARLIAMENT');prop(238,'ballot');sgn(224,'PAY BACK THE MONEY');sgn(260,'NKANDLA HOMESTEAD');sgn(286,'PHALA PHALA');
+    sgn(220,'PARLIAMENT');prop(238,'ballot');sgn(224,'PAY BACK THE MONEY');sgn(260,"PRESIDENT'S ESTATE");sgn(286,'PHALA PHALA');
     [176,212].forEach(function(c){if(gtop(c)!=null)roadblocks.push({x:c*TILE,y:gtop(c)*TILE,taken:false});}); // N1 police roadblocks (flat ground only)
     [176,212].forEach(function(c){set(c-3,9,'=');set(c-2,9,'=');set(c,7,'=');set(c+1,7,'=');set(c+2,7,'=');}); // raised ramp+ledge to hop OVER each roadblock (skip the shakedown)
     for(var c=190;c<=202;c++)set(c,5,'=');                                                            // N1 overpass bridge deck
@@ -282,7 +282,7 @@
   }
   function endGame(win){if(won||lost)return;
     var ei=g('endimg');
-    if(win){won=true;AUD.sfx('win');if(ei){ei.src='assets/bg/endart.jpg';ei.style.display='block';}var banked=depTotal||cash;g('ovt').textContent='🎉 THE PARTY WINS! 🎉';g('ovp').innerHTML='$uma stuffs <b>R '+fmt(banked)+'</b> into the couch. 🛋️💵<br>The Commission sighs, the party sweeps the election <b>again</b>, and there are zero charges. 🇿🇦';}
+    if(win){won=true;AUD.sfx('win');if(ei){ei.src='assets/bg/endart.jpg';ei.style.display='block';}var banked=depTotal||cash;g('ovt').textContent='🎉 THE PARTY WINS! 🎉';g('ovp').innerHTML='Cyril stuffs <b>R '+fmt(banked)+'</b> into the couch. 🛋️💵<br>The Commission sighs, the party sweeps the election <b>again</b>, and there are zero charges. 🇿🇦';}
     else{lost=true;if(ei)ei.style.display='none';g('ovt').textContent='BUSTED!';g('ovp').textContent='Mr C broke the story and the Commission came knocking. Run faster, grab more.';}
     g('over').classList.add('show');
   }
@@ -474,15 +474,6 @@
       ctx.fillStyle='rgba(0,0,0,.30)';ctx.beginPath();ctx.ellipse(cx,feet-0.4,7,2.2,0,0,7);ctx.fill();
       if(immune>0&&!(immune<90&&Math.floor(tick/4)%2)){var ig=Math.abs(Math.sin(tick/5));ctx.save();ctx.globalAlpha=0.26+0.22*ig;ctx.fillStyle='#ffd23b';ctx.beginPath();ctx.ellipse(cx,feet-dh*0.42,dw*0.78,dh*0.62,0,0,7);ctx.fill();ctx.restore();} // immunity aura
       ctx.save();ctx.translate(cx,feet-bob);if(P.face<0)ctx.scale(-1,1);ctx.scale(1+st,1-st);ctx.drawImage(IMG2,-dw/2,-dh,dw,dh);
-      // $uma showerhead (the Zapiro device): bent pipe + shower-rose spraying onto the head
-      var rose=-dh-2.5;                                                     // 2.5px above the top of the head
-      ctx.strokeStyle='#9aa0a8';ctx.lineWidth=1.8;ctx.lineCap='round';      // bent supply pipe (L-shape, looks plumbed not floating)
-      ctx.beginPath();ctx.moveTo(0,rose-1);ctx.lineTo(0,rose-4);ctx.lineTo(4,rose-4);ctx.stroke();
-      ctx.fillStyle='#c4c9d0';ctx.beginPath();ctx.moveTo(-2,rose-1);ctx.lineTo(2,rose-1);ctx.lineTo(5.5,rose+1.4);ctx.lineTo(-5.5,rose+1.4);ctx.closePath();ctx.fill(); // funnel rose
-      ctx.fillStyle='#868d96';ctx.fillRect(-5.5,rose+1.4,11,1.4);           // perforated face plate
-      ctx.fillStyle='#5c626b';for(var nz=0;nz<5;nz++)ctx.fillRect(-4.4+nz*2.1,rose+1.9,0.9,0.9); // nozzle holes
-      ctx.fillStyle='rgba(150,210,255,.85)';                                // water spraying DOWN onto the head
-      for(var wd=0;wd<5;wd++){var wph=((tick*0.7+wd*4)%7);ctx.fillRect(-4+wd*2,rose+3+wph*0.7,0.9,2.4);}
       ctx.restore();
       return;
     }
