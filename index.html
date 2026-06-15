@@ -251,7 +251,7 @@
 
   // ===================== ENTITIES =====================
   var P={x:startX*TILE,y:startY*TILE,w:13,h:18,vx:0,vy:0,onG:false,face:1,anim:0};
-  var cash=0,lives=3,won=false,lost=false,camX=0,camY=0,tick=0,invuln=0,immune=0,warpCool=0;
+  var cash=0,lives=4,won=false,lost=false,camX=0,camY=0,tick=0,invuln=0,immune=0,warpCool=0;
   var boss=null,arenaL=1e9,popups=[];
   var phase='play',depositT=0,depTotal=0,keyItem=null,hasKey=false,gateCols=[],depCouch=null;
   var projectiles=[],traffic=[],depCoins=[],movers=[];
@@ -339,7 +339,7 @@
     if(LH<=viewH)camY=LH-viewH; else camY=Math.max(0,Math.min(LH-viewH,P.y+P.h/2-viewH/2));
     updZone();
     coinE.forEach(function(o){if(o.got)return;o.ph+=0.15;if(o.pop){o.pop--;o.y-=1.4;if(o.pop<=0)o.got=true;return;}if(P.x<o.x+12&&P.x+P.w>o.x&&P.y<o.y+14&&P.y+P.h>o.y){o.got=true;cash+=100;updHUD();AUD.sfx('coin');}});
-    heartE.forEach(function(o){if(o.got)return;if(P.x<o.x+16&&P.x+P.w>o.x&&P.y<o.y+16&&P.y+P.h>o.y){o.got=true;if(lives<4){lives++;buildLives();}}});
+    heartE.forEach(function(o){if(o.got)return;if(P.x<o.x+16&&P.x+P.w>o.x&&P.y<o.y+16&&P.y+P.h>o.y){o.got=true;if(lives<5){lives++;buildLives();}}});
     // IMMUNITY DEAL power-up → invincible for ~9s
     powerE.forEach(function(o){if(o.got)return;o.ph+=0.12;if(P.x<o.x+14&&P.x+P.w>o.x&&P.y<o.y+16&&P.y+P.h>o.y){o.got=true;immune=210;AUD.sfx('win');popups.push({x:o.x+7,y:o.y-8,t:'IMMUNITY! 🛡 3.5s',life:100});}});
     // GUPTA-JET WARP → fly to the Dubai vault / back
