@@ -297,7 +297,7 @@
   window.addEventListener('keyup',function(e){var k=e.key.toLowerCase();if(k==='arrowleft'||k==='a')inL=false;if(k==='arrowright'||k==='d')inR=false;if(k==='shift')inRun=false;if(k===' '||k==='arrowup'||k==='w')inJ=false;});
   g('ovb').addEventListener('click',function(){location.reload();});
   g('ovb').addEventListener('touchstart',function(e){e.preventDefault();location.reload();});
-  function share(){var t='I looted R'+fmt(cash)+' in GRAVY TRAIN 🚂💰 — Cape Town’s great loot run. Beat me:';var u=location.href;if(navigator.share){navigator.share({title:'GRAVY TRAIN',text:t,url:u}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(t+' '+u),'_blank');}}
+  function share(){try{if(window.fetch)window.fetch('https://gravytrainza-counter.gravytrainza.workers.dev/share').catch(function(){});}catch(e){}var t='I looted R'+fmt(cash)+' in GRAVY TRAIN 🚂💰 — Cape Town’s great loot run. Beat me:';var u=location.href;if(navigator.share){navigator.share({title:'GRAVY TRAIN',text:t,url:u}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(t+' '+u),'_blank');}}
   g('ovs').addEventListener('click',share);
   g('ovs').addEventListener('touchstart',function(e){e.preventDefault();share();});
 

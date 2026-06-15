@@ -1,13 +1,13 @@
 {
   "name": "GRAVY TRAIN",
   "short_name": "GRAVY TRAIN",
-  "description": "Cape Town's great loot run — a satirical platformer.",
-  "start_url": ".",
+  "description": "Cape Town's great loot run. Grab every scandal, dodge the press and cops, beat the Guptas, stuff the couch.",
+  "start_url": "./",
   "scope": "./",
   "display": "fullscreen",
   "orientation": "landscape",
-  "background_color": "#0a1326",
-  "theme_color": "#0a1326",
+  "background_color": "#15233f",
+  "theme_color": "#15233f",
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
