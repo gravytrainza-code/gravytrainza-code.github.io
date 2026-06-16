@@ -47,7 +47,7 @@
   #heroimg{width:100%;border-radius:12px;display:block;}
   #start h1{font-size:34px;font-weight:900;color:#ffd23b;letter-spacing:2px;margin-top:8px;text-shadow:2px 2px 0 #00000060;}
   #start h1 span{color:#3fa35a;}
-  #start .tag{color:#ffd23b;font-size:15px;font-weight:800;letter-spacing:3px;margin:2px 0 14px;}
+  #start .tag{color:#ffd23b;font-size:21px;font-weight:800;letter-spacing:2px;margin:4px 0 14px;}
   #start .goal{font-size:14px;line-height:1.55;margin:0 auto 20px;max-width:470px;color:#cfe0ff;}
   #start .goal b{display:inline-block;color:#ffd23b;font-size:21px;letter-spacing:.5px;margin-bottom:4px;text-shadow:2px 2px 0 #00000050;}
   #start .roster{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 12px;margin-bottom:20px;}
@@ -58,7 +58,7 @@
   #start .roster .pair img{height:88px;}
   #start .roster span{display:flex;flex-direction:column;align-items:center;font-size:13px;font-weight:800;color:#ffd23b;margin-top:8px;line-height:1.25;text-align:center;}
   #start .roster small{font-size:10px;font-weight:400;color:#9fb6d6;margin-top:1px;}
-  #start .cheatrow{margin-bottom:14px;}
+  #start .cheatrow{margin:26px 0 14px;}
   #start #cheat{padding:8px 10px;border-radius:8px;border:2px solid #2a3a5a;background:#142036;color:#fff;font-family:monospace;width:150px;text-align:center;font-size:14px;}
   #start #cheatmsg{color:#3fd07a;font-size:12px;margin-left:8px;font-weight:800;}
   #start #playbtn{height:58px;padding:0 46px;border-radius:14px;border:none;background:#007a4d;color:#fff;font-size:22px;font-weight:900;box-shadow:0 6px 0 #045236;margin:6px 0 18px;}
@@ -82,8 +82,8 @@
     <div id="startInner">
       <img id="heroimg" src="assets/bg/cyril_happy.jpg" alt="Cyril"/>
       <h1>GRAVY<span> TRAIN</span></h1>
-      <p class="tag">🇿🇦 A CAPE TOWN LOOT RUN</p>
-      <p class="goal"><b>A New Dawn for the gravy train.</b><br>Grab the loot · dodge the press · stuff the couch.</p>
+      <p class="tag">🇿🇦 A SOUTH AFRICAN LOOT RUN</p>
+      <p class="goal">Grab the loot · dodge the press · stuff the couch.</p>
       <button id="playbtn">▶ PLAY</button>
       <div id="playcount"></div>
       <div class="roster">
@@ -231,7 +231,7 @@
     sgn(172,'N1 NORTH');prop(214,'tender');
     sgn(220,'PARLIAMENT');prop(238,'ballot');sgn(224,'PAY BACK THE MONEY');sgn(260,"PRESIDENT'S ESTATE");sgn(286,'PHALA PHALA');
     // comedy SA-corruption signage scattered through the run
-    sgn(30,'TENDERPRENEUR XING');sgn(84,'BLUE-LIGHT VIP ONLY');sgn(110,'CADRE DEPLOYMENT');sgn(150,'LOADSHEDDING STAGE 6');sgn(182,'POTHOLE PARKING');sgn(200,'TAXI RANK: HOOT 2X');
+    sgn(30,'TENDERPRENEUR XING');sgn(84,'BLUE-LIGHT VIP ONLY');sgn(110,'CADRE DEPLOYMENT');sgn(166,'SAXONWOLD SHEBEEN');sgn(182,'POTHOLE PARKING');sgn(200,'TAXI RANK: HOOT 2X');sgn(262,'FIRE POOL 4 SECURITY');sgn(272,'DOLLARS IN THE COUCH');
     [176,212].forEach(function(c){if(gtop(c)!=null)roadblocks.push({x:c*TILE,y:gtop(c)*TILE,taken:false});}); // N1 police roadblocks (flat ground only)
     [176,212].forEach(function(c){set(c-3,9,'=');set(c-2,9,'=');set(c,7,'=');set(c+1,7,'=');set(c+2,7,'=');}); // raised ramp+ledge to hop OVER each roadblock (skip the shakedown)
     for(var c=190;c<=202;c++)set(c,5,'=');                                                            // N1 overpass bridge deck
@@ -537,7 +537,7 @@
   }
 
   function drawProp(p){var x=p.x,y=p.y;
-    if(p.type==='sign'){var w=p.t.length*3.6+8;ctx.fillStyle='#6a4a2a';ctx.fillRect(x+TILE/2-1,y-25,2,25);ctx.fillStyle='#0b3d91';ctx.fillRect(x+TILE/2-w/2,y-38,w,13);ctx.strokeStyle='#dfe7f5';ctx.lineWidth=0.8;ctx.strokeRect(x+TILE/2-w/2+1.2,y-37,w-2.4,11);ctx.fillStyle='#fff';ctx.font='bold 7px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(p.t,x+TILE/2,y-31.2);ctx.textBaseline='alphabetic';}
+    if(p.type==='sign'){var w=p.t.length*4.7+11;ctx.fillStyle='#6a4a2a';ctx.fillRect(x+TILE/2-1,y-25,2,25);ctx.fillStyle='#0b3d91';ctx.fillRect(x+TILE/2-w/2,y-38,w,13);ctx.strokeStyle='#dfe7f5';ctx.lineWidth=0.8;ctx.strokeRect(x+TILE/2-w/2+1.2,y-37,w-2.4,11);ctx.fillStyle='#fff';ctx.font='bold 7px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(p.t,x+TILE/2,y-31.2);ctx.textBaseline='alphabetic';}
     else if(p.type==='solar'){ctx.fillStyle='#3a3f47';ctx.fillRect(x+TILE/2-1,y-11,2,11);ctx.save();ctx.translate(x+TILE/2,y-12);ctx.rotate(-0.34);ctx.fillStyle='#15365c';ctx.fillRect(-12,-3,24,8);ctx.strokeStyle='#4f86c4';ctx.lineWidth=0.7;for(var i=-12;i<=12;i+=4){ctx.beginPath();ctx.moveTo(i,-3);ctx.lineTo(i,5);ctx.stroke();}ctx.beginPath();ctx.moveTo(-12,1);ctx.lineTo(12,1);ctx.stroke();ctx.restore();}
     else if(p.type==='inverter'){ctx.fillStyle='#cfd3d8';ctx.fillRect(x+2,y-15,14,15);ctx.fillStyle='#9aa0a6';ctx.fillRect(x+2,y-15,14,2);ctx.fillStyle='#22303c';ctx.fillRect(x+4,y-12,10,5);ctx.fillStyle='#39d353';ctx.fillRect(x+4,y-5,2,2);ctx.fillStyle='#ffd23b';ctx.fillRect(x+8,y-5,2,2);ctx.fillStyle='#e23b3b';ctx.fillRect(x+12,y-5,2,2);}
     else if(p.type==='umbrella'){ctx.fillStyle='#8a5a32';ctx.fillRect(x+TILE/2-0.6,y-22,1.2,22);ctx.fillStyle='#e23b3b';ctx.beginPath();ctx.arc(x+TILE/2,y-22,11,Math.PI,0);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.moveTo(x+TILE/2-11,y-22);ctx.arc(x+TILE/2,y-22,11,Math.PI,Math.PI*1.25);ctx.lineTo(x+TILE/2,y-22);ctx.fill();ctx.beginPath();ctx.moveTo(x+TILE/2,y-22);ctx.arc(x+TILE/2,y-22,11,Math.PI*1.5,Math.PI*1.75);ctx.lineTo(x+TILE/2,y-22);ctx.fill();}
