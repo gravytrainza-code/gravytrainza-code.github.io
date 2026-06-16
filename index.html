@@ -115,7 +115,7 @@
       </div>
       <div class="roster">
         <div><img src="assets/spr/prez.png"><span>CYRIL<small>you</small></span></div>
-        <div><img src="assets/spr/inspector.png"><span>INSPECTOR<small>the watchdog</small></span></div>
+        <div><img src="assets/spr/bergie.png"><span>THE BERGIE<small>swipes your loot</small></span></div>
         <div><img src="assets/spr/enemy.png"><span>REPORTER CORDER<small>breaks the story</small></span></div>
         <div><img src="assets/spr/protester.png"><span>CITIZENS<small>stone throwers</small></span></div>
         <div><img src="assets/spr/eff.png"><span>THE C.I.C.<small>red berets</small></span></div>
@@ -141,7 +141,7 @@
   var PLATE=[], PLATEKEYS=['city','muizenberg','seapoint','township','n1','parliament','mansion'];
   PLATEKEYS.forEach(function(k,i){var im=new Image();im.src='assets/bg/'+k+'.jpg';PLATE[i]=im;});
   // AI-generated character sprites (transparent PNGs). Procedural figures stay as fallback.
-  var SPR={};['prez','enemy','inspector','cop','cop2','police_car','boss','protester','taxi','key','eff','couch'].forEach(function(k){var im=new Image();im.src='assets/spr/'+k+'.png';SPR[k]=im;});
+  var SPR={};['prez','enemy','inspector','cop','cop2','police_car','boss','protester','taxi','key','eff','couch','bergie'].forEach(function(k){var im=new Image();im.src='assets/spr/'+k+'.png';SPR[k]=im;});
   // ===================== AUDIO (Web Audio, self-contained — no files) =====================
   var AUD=(function(){
     var ac=null,muted=false,musicOn=false,mi=0;
@@ -247,7 +247,8 @@
     jets.push({c:49,r:2,kind:'out',tx:60*TILE,ty:gtop(60)*TILE-19});// return jet UP on the exit ledge → jump on it to leave
     hearts.push({c:48,r:4});  // the ONE +1 life in the whole game — sits on the Dubai vault floor, reachable ONLY via the Gupta-jet warp
     for(var k=6;k<214;k+=4){if(gtop(k)!=null&&gtop(k+1)!=null)coins.push({c:k,r:gtop(k)-2});}
-    for(var e=18,ei=0;e<170;e+=14,ei++){if(gtop(e)!=null&&gtop(e-1)!=null&&gtop(e+1)!=null)enemies.push({c:e,r:gtop(e)-1,kind:ei%2?'mrc':'inspector'});}
+    for(var e=18,ei=0;e<170;e+=14,ei++){if(gtop(e)!=null&&gtop(e-1)!=null&&gtop(e+1)!=null)enemies.push({c:e,r:gtop(e)-1,kind:'mrc'});}
+    [12,34].forEach(function(c){if(gtop(c)!=null)enemies.push({c:c,r:gtop(c)-1,kind:'bergie'});}); // Long St: a bergie who swipes your loot then bolts
     function sgn(c,txt){if(gtop(c)==null)return;props.push({type:'sign',x:c*TILE,y:gtop(c)*TILE,t:txt});}
     function prop(c,type){if(gtop(c)==null)return;props.push({type:type,x:c*TILE,y:gtop(c)*TILE});}
     function haz(c,type){if(gtop(c)==null)return;hazards.push({type:type,x:c*TILE,y:gtop(c)*TILE,ph:rng()*6});}
@@ -293,7 +294,7 @@
   buildLevel();   // run AFTER all state vars exist so boss/gateCols/depCouch/traffic aren't reset to defaults
   var coinE=coins.map(function(o){return {x:o.c*TILE+3,y:o.r*TILE+2,got:false,ph:Math.random()*6};});
   var heartE=hearts.map(function(o){return {x:o.c*TILE+1,y:o.r*TILE+1,got:false};});
-  var enemyE=enemies.map(function(o){return {x:o.c*TILE,y:o.r*TILE,w:16,h:16,vx:(o.thr||o.still)?0:0.55*(o.c%2?1:-1),alive:true,ph:Math.random()*6,flash:0,thr:o.thr,kind:o.kind,cool:40+((o.c*13)%70)};});
+  var enemyE=enemies.map(function(o){var bg=o.kind==='bergie';return {x:o.c*TILE,y:o.r*TILE+(bg?3:0),w:bg?12:16,h:bg?13:16,vx:(o.thr||o.still)?0:(bg?0.7:0.55)*(o.c%2?1:-1),alive:true,ph:Math.random()*6,flash:0,thr:o.thr,kind:o.kind,fled:false,cool:40+((o.c*13)%70)};});
   var powerE=powerups.map(function(o){return {x:o.c*TILE,y:o.r*TILE,got:false,ph:Math.random()*6};});
   var lastSafe={x:startX*TILE,y:startY*TILE};
   var inL=false,inR=false,inJ=false,inRun=false,jbuf=0,coyote=0,springLock=0;
@@ -398,13 +399,20 @@
     coinE.forEach(function(o){if(o.got)return;o.ph+=0.15;if(o.pop){o.pop--;o.y-=1.4;if(o.pop<=0)o.got=true;return;}if(P.x<o.x+12&&P.x+P.w>o.x&&P.y<o.y+14&&P.y+P.h>o.y){o.got=true;cash+=100;updHUD();AUD.sfx('coin');}});
     heartE.forEach(function(o){if(o.got)return;if(P.x<o.x+16&&P.x+P.w>o.x&&P.y<o.y+16&&P.y+P.h>o.y){o.got=true;if(lives<5){lives++;buildLives();}}});
     // IMMUNITY DEAL power-up → invincible for ~9s
-    powerE.forEach(function(o){if(o.got)return;o.ph+=0.12;if(P.x<o.x+14&&P.x+P.w>o.x&&P.y<o.y+16&&P.y+P.h>o.y){o.got=true;immune=210;AUD.sfx('win');popups.push({x:o.x+7,y:o.y-8,t:'IMMUNITY! 🛡 3.5s',life:100});}});
+    powerE.forEach(function(o){if(o.got)return;o.ph+=0.12;if(P.x<o.x+14&&P.x+P.w>o.x&&P.y<o.y+16&&P.y+P.h>o.y){o.got=true;immune=450;AUD.sfx('win');popups.push({x:o.x+7,y:o.y-8,t:'IMMUNITY! 🛡 7.5s',life:100});}});
     // GUPTA-JET WARP → fly to the Dubai vault / back
     jets.forEach(function(jt){if(warpCool>0)return;var jx=jt.c*TILE,jy=jt.r*TILE;if(P.x+P.w>jx-2&&P.x<jx+TILE+2&&P.y+P.h>jy-6&&P.y<jy+TILE+6){P.x=jt.tx;P.y=jt.ty;P.vx=0;P.vy=0;warpCool=75;AUD.sfx('loot');popups.push({x:jt.tx+8,y:jt.ty-12,t:jt.kind==='in'?'✈ DUBAI VAULT':'BACK TO THE RUN →',life:100});}});
     enemyE.forEach(function(e){if(!e.alive)return;e.ph+=0.2;
       if(e.thr){if(e.cool>0)e.cool--;else if(Math.abs((P.x+P.w/2)-(e.x+e.w/2))<175){var tx=(P.x+P.w/2)-(e.x+e.w/2),ty=P.y-e.y,dd=Math.max(50,Math.sqrt(tx*tx+ty*ty));projectiles.push({x:e.x+e.w/2,y:e.y+2,vx:tx/dd*3.2,vy:ty/dd*3.2-1.0});e.cool=78;}}
+      else if(e.fled){e.x+=e.vx;if(e.x<camX-70||e.x>camX+viewW+70)e.alive=false;}
       else{e.x+=e.vx;var fx=e.vx>0?e.x+e.w:e.x;if(solidAt(fx,e.y+e.h/2)||!solidAt(e.x+e.w/2,e.y+e.h+2)){e.vx=-e.vx;e.x+=e.vx*2;}}
-      if(P.x<e.x+e.w&&P.x+P.w>e.x&&P.y<e.y+e.h&&P.y+P.h>e.y){if(P.vy>1&&P.y+P.h<e.y+e.h*0.7){e.alive=false;P.vy=-6;cash+=250;updHUD();AUD.sfx('stomp');}else if(immune>0){e.alive=false;cash+=250;updHUD();AUD.sfx('stomp');}else if(invuln<=0){hurt('enemy');}}});
+      if(P.x<e.x+e.w&&P.x+P.w>e.x&&P.y<e.y+e.h&&P.y+P.h>e.y){
+        if(e.kind==='bergie'){ if(!e.fled){ var away=(e.x<P.x?-1:1);
+          if((P.vy>1&&P.y+P.h<e.y+e.h*0.7)||immune>0){e.fled=true;e.vx=away*3.4;if(P.vy>1)P.vy=-5;AUD.sfx('stomp');popups.push({x:e.x+e.w/2,y:e.y-6,t:'🍷 VOETSEK!',life:60,big:true,col:'#ffd23b'});}
+          else{var sw=Math.min(cash,300+Math.floor(cash*0.05));cash-=sw;updHUD();e.fled=true;e.vx=away*3.6;invuln=25;AUD.sfx('siren');popups.push({x:e.x+e.w/2,y:e.y-6,t:(sw>0?'-R'+fmt(sw)+' SWIPED!':'SWIPED!'),life:80,big:true,col:'#ff9a3b'});} } }
+        else if(P.vy>1&&P.y+P.h<e.y+e.h*0.7){e.alive=false;P.vy=-6;cash+=250;updHUD();AUD.sfx('stomp');}
+        else if(immune>0){e.alive=false;cash+=250;updHUD();AUD.sfx('stomp');}
+        else if(invuln<=0){hurt('enemy');}}});
     for(var ri=projectiles.length-1;ri>=0;ri--){var pr=projectiles[ri];pr.vy+=0.16;pr.x+=pr.vx;pr.y+=pr.vy; // protester rocks
       if(invuln<=0&&P.x<pr.x+5&&P.x+P.w>pr.x-2&&P.y<pr.y+5&&P.y+P.h>pr.y-2){hurt('rock');projectiles.splice(ri,1);continue;}
       if(pr.y>LH+20||pr.x<camX-60||pr.x>camX+viewW+60)projectiles.splice(ri,1);}
@@ -556,9 +564,9 @@
   }
   // ENEMIES = "THE COMMISSION": the INSPECTOR (watchdog, trench coat) and REPORTER CORDER (mic). Throwers = CITIZENS.
   function drawEnemy(e){
-    var IMG3=e.thr?SPR.protester:(e.kind==='eff'?SPR.eff:e.kind==='inspector'?SPR.inspector:SPR.enemy);
+    var IMG3=e.thr?SPR.protester:(e.kind==='bergie'?SPR.bergie:e.kind==='eff'?SPR.eff:e.kind==='inspector'?SPR.inspector:SPR.enemy);
     if(IMG3&&IMG3.complete&&IMG3.naturalWidth){
-      var dh=24,dw=dh*(IMG3.naturalWidth/IMG3.naturalHeight),cx=e.x+e.w/2,feet=e.y+e.h,bob=Math.abs(Math.sin(e.ph*1.3))*1.1;
+      var dh=e.kind==='bergie'?19:24,dw=dh*(IMG3.naturalWidth/IMG3.naturalHeight),cx=e.x+e.w/2,feet=e.y+e.h,bob=Math.abs(Math.sin(e.ph*1.3))*1.1;
       ctx.fillStyle='rgba(0,0,0,.28)';ctx.beginPath();ctx.ellipse(cx,feet-0.4,6,2,0,0,7);ctx.fill();
       ctx.save();ctx.translate(cx,feet-bob);if(e.vx>0)ctx.scale(-1,1);ctx.drawImage(IMG3,-dw/2,-dh,dw,dh);ctx.restore();
       return;
