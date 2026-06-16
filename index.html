@@ -84,7 +84,7 @@
       <div class="roster">
         <div><img src="assets/spr/prez.png"><span>CYRIL<small>you</small></span></div>
         <div><img src="assets/spr/inspector.png"><span>INSPECTOR<small>the watchdog</small></span></div>
-        <div><img src="assets/spr/enemy.png"><span>MR CORDER<small>the reporter</small></span></div>
+        <div><img src="assets/spr/enemy.png"><span>REPORTER CORDER<small>breaks the story</small></span></div>
         <div><img src="assets/spr/protester.png"><span>CITIZENS<small>stone throwers</small></span></div>
         <div><img src="assets/spr/eff.png"><span>THE C.I.C.<small>red berets</small></span></div>
         <div class="cops"><div class="pair"><img src="assets/spr/cop.png"><img src="assets/spr/cop2.png"></div><span>THE COPS<small>roadblock</small></span></div>
@@ -283,7 +283,7 @@
   function endGame(win){if(won||lost)return;
     var ei=g('endimg');
     if(win){won=true;AUD.sfx('win');if(ei){ei.src='assets/bg/endart.jpg';ei.style.display='block';}var banked=depTotal||cash;g('ovt').textContent='🎉 THE PARTY WINS! 🎉';g('ovp').innerHTML='Cyril stuffs <b>R '+fmt(banked)+'</b> into the couch. 🛋️💵<br>The Commission sighs, the party sweeps the election <b>again</b>, and there are zero charges. 🇿🇦';}
-    else{lost=true;if(ei)ei.style.display='none';g('ovt').textContent='BUSTED!';g('ovp').textContent='Mr Corder broke the story and the Commission came knocking. Run faster, grab more.';}
+    else{lost=true;if(ei)ei.style.display='none';g('ovt').textContent='BUSTED!';g('ovp').textContent='Reporter Corder broke the story and the Commission came knocking. Run faster, grab more.';}
     g('over').classList.add('show');
   }
 
@@ -497,7 +497,7 @@
     ctx.fillStyle='#2a1a10';ctx.fillRect(7.6,7,2.6,0.7);ctx.fillStyle='#fff';ctx.fillRect(8,7,1.8,0.5);
     ctx.restore();
   }
-  // ENEMIES = "THE COMMISSION": the INSPECTOR (watchdog, trench coat) and MR CORDER (the reporter, mic). Throwers = CITIZENS.
+  // ENEMIES = "THE COMMISSION": the INSPECTOR (watchdog, trench coat) and REPORTER CORDER (mic). Throwers = CITIZENS.
   function drawEnemy(e){
     var IMG3=e.thr?SPR.protester:(e.kind==='eff'?SPR.eff:e.kind==='inspector'?SPR.inspector:SPR.enemy);
     if(IMG3&&IMG3.complete&&IMG3.naturalWidth){
