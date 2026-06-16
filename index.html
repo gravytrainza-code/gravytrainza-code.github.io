@@ -85,6 +85,7 @@
   .cmtadd{display:flex;gap:8px;margin:10px auto 0;max-width:470px;width:100%;}
   .cmtadd input{flex:1;padding:12px 13px;border-radius:12px;border:1px solid #2a3a5a;background:#101a30;color:#fff;font-size:16px;line-height:1.2;}
   .cmtadd button{background:linear-gradient(180deg,#19c279,#067a47);border:none;color:#fff;font-weight:800;font-size:13px;padding:0 18px;border-radius:12px;cursor:pointer;}
+  .cmtnote{font-size:11px;color:#7e93b8;text-align:center;margin-top:8px;letter-spacing:.3px;}
   .fb{margin-top:16px;background:rgba(255,255,255,.06);border:1px solid #3a4a6a;color:#9fb6d6;font-size:12px;font-weight:700;padding:9px 18px;border-radius:22px;cursor:pointer;}
   .fb:active{background:rgba(255,255,255,.16);}
   #mute{position:absolute;top:46px;right:12px;width:34px;height:34px;border-radius:9px;background:rgba(20,24,40,.5);border:2px solid rgba(255,255,255,.45);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:20;}
@@ -97,7 +98,7 @@
   <div class="ov pad" id="move"><div class="btn" id="left">◀</div><div class="btn" id="right">▶</div></div>
   <div class="ov pad" id="act"><div class="btn" id="run">RUN</div><div class="btn" id="jump">JUMP</div></div>
   <div class="ov" id="mute">🔊</div>
-  <div class="ov" id="over"><img id="endimg" alt=""/><h1 id="ovt">CLEAR!</h1><p id="ovp">—</p><div class="row"><button id="ovb">Run again</button><button id="ovs" class="share">Share game</button></div><div class="cmtadd"><input id="cmtbox2" maxlength="280" placeholder="💬 Leave a comment…" autocomplete="off"/><button id="cmtpost2">Post</button></div><button id="ovf" class="fb">⚠ Report a problem</button></div>
+  <div class="ov" id="over"><img id="endimg" alt=""/><h1 id="ovt">CLEAR!</h1><p id="ovp">—</p><div class="row"><button id="ovb">Run again</button><button id="ovs" class="share">Share game</button></div><div class="cmtadd"><input id="cmtbox2" maxlength="280" placeholder="💬 Leave a comment…" autocomplete="off"/><button id="cmtpost2">Post</button></div><p class="cmtnote">Anonymous · unmoderated</p><button id="ovf" class="fb">⚠ Report a problem</button></div>
   <div id="ld">loading…</div>
   <div id="start">
     <div id="startInner">
@@ -108,9 +109,9 @@
       <button id="playbtn">▶ PLAY</button>
       <div id="playcount"></div>
       <div class="cmtfeed">
-        <div class="cmthd">💬 <span id="cmtN">0</span> comments · public &amp; unmoderated</div>
         <div class="cmtwin"><div id="cmtroll" class="cmtroll"></div></div>
         <div class="cmtadd"><input id="cmtbox" maxlength="280" placeholder="Leave a comment…" autocomplete="off"/><button id="cmtpost">Post</button></div>
+        <p class="cmtnote">Anonymous · unmoderated</p>
       </div>
       <div class="roster">
         <div><img src="assets/spr/prez.png"><span>CYRIL<small>you</small></span></div>
