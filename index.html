@@ -409,7 +409,7 @@
       if(P.x<e.x+e.w&&P.x+P.w>e.x&&P.y<e.y+e.h&&P.y+P.h>e.y){
         if(e.kind==='bergie'){ if(!e.fled){ var away=(e.x<P.x?-1:1);
           if((P.vy>1&&P.y+P.h<e.y+e.h*0.7)||immune>0){e.fled=true;e.vx=away*3.4;if(P.vy>1)P.vy=-5;AUD.sfx('stomp');popups.push({x:e.x+e.w/2,y:e.y-6,t:'🍷 VOETSEK!',life:60,big:true,col:'#ffd23b'});}
-          else{var sw=Math.min(cash,300+Math.floor(cash*0.05));cash-=sw;updHUD();e.fled=true;e.vx=away*3.6;invuln=25;AUD.sfx('siren');popups.push({x:e.x+e.w/2,y:e.y-6,t:(sw>0?'-R'+fmt(sw)+' SWIPED!':'SWIPED!'),life:80,big:true,col:'#ff9a3b'});} } }
+          else{var sw=Math.min(cash,300+Math.floor(cash*0.05));cash-=sw;updHUD();e.fled=true;e.vx=away*3.6;invuln=25;AUD.sfx('siren');popups.push({x:e.x+e.w/2,y:e.y-6,t:(sw>0?'🍷 SWIPED -R'+fmt(sw):'🍷 SWIPED YOUR LOOT'),life:80,big:true,col:'#ff9a3b'});} } }
         else if(P.vy>1&&P.y+P.h<e.y+e.h*0.7){e.alive=false;P.vy=-6;cash+=250;updHUD();AUD.sfx('stomp');}
         else if(immune>0){e.alive=false;cash+=250;updHUD();AUD.sfx('stomp');}
         else if(invuln<=0){hurt('enemy');}}});
