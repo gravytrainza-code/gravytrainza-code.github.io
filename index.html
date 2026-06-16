@@ -50,18 +50,18 @@
   #start .tag{color:#ffd23b;font-size:15px;font-weight:800;letter-spacing:3px;margin:2px 0 14px;}
   #start .goal{font-size:14px;line-height:1.55;margin:0 auto 20px;max-width:470px;color:#cfe0ff;}
   #start .goal b{display:inline-block;color:#ffd23b;font-size:21px;letter-spacing:.5px;margin-bottom:4px;text-shadow:2px 2px 0 #00000050;}
-  #start .roster{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 12px;margin-bottom:20px;}
-  #start .roster div{display:flex;flex-direction:column;align-items:center;width:29%;min-width:96px;background:rgba(20,32,54,.5);border-radius:12px;padding:12px 4px 9px;}
-  #start .roster img{height:66px;object-fit:contain;}
-  #start .roster .cops{width:29%;}
-  #start .roster .pair{display:flex;flex-direction:row;gap:6px;align-items:flex-end;justify-content:center;height:66px;}
-  #start .roster .pair img{height:62px;}
+  #start .roster{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 12px;margin-bottom:20px;}
+  #start .roster div{display:flex;flex-direction:column;align-items:center;width:30%;min-width:108px;background:rgba(20,32,54,.5);border-radius:12px;padding:14px 4px 10px;}
+  #start .roster img{height:96px;object-fit:contain;}
+  #start .roster .cops{width:30%;}
+  #start .roster .pair{display:flex;flex-direction:row;gap:6px;align-items:flex-end;justify-content:center;height:96px;}
+  #start .roster .pair img{height:88px;}
   #start .roster span{display:flex;flex-direction:column;align-items:center;font-size:13px;font-weight:800;color:#ffd23b;margin-top:8px;line-height:1.25;text-align:center;}
   #start .roster small{font-size:10px;font-weight:400;color:#9fb6d6;margin-top:1px;}
   #start .cheatrow{margin-bottom:14px;}
   #start #cheat{padding:8px 10px;border-radius:8px;border:2px solid #2a3a5a;background:#142036;color:#fff;font-family:monospace;width:150px;text-align:center;font-size:14px;}
   #start #cheatmsg{color:#3fd07a;font-size:12px;margin-left:8px;font-weight:800;}
-  #start #playbtn{height:58px;padding:0 46px;border-radius:14px;border:none;background:#007a4d;color:#fff;font-size:22px;font-weight:900;box-shadow:0 6px 0 #045236;}
+  #start #playbtn{height:58px;padding:0 46px;border-radius:14px;border:none;background:#007a4d;color:#fff;font-size:22px;font-weight:900;box-shadow:0 6px 0 #045236;margin:6px 0 18px;}
   #start #playcount{display:none;margin:0 auto 12px;width:fit-content;font-size:13px;font-weight:800;color:#ffd23b;background:rgba(255,210,59,.12);border:1px solid rgba(255,210,59,.35);border-radius:20px;padding:5px 16px;letter-spacing:.4px;}
   #start .ctrl{font-size:11px;color:#7e93b8;margin-top:14px;}
   .fb{margin-top:16px;background:rgba(255,255,255,.06);border:1px solid #3a4a6a;color:#9fb6d6;font-size:12px;font-weight:700;padding:9px 18px;border-radius:22px;cursor:pointer;}
@@ -83,7 +83,9 @@
       <img id="heroimg" src="assets/bg/cyril_happy.jpg" alt="Cyril"/>
       <h1>GRAVY<span> TRAIN</span></h1>
       <p class="tag">🇿🇦 A CAPE TOWN LOOT RUN</p>
-      <p class="goal"><b id="hook">It's not stealing if you're connected.</b><br>Grab the loot · dodge the press · stuff the couch.</p>
+      <p class="goal"><b>A New Dawn for the gravy train.</b><br>Grab the loot · dodge the press · stuff the couch.</p>
+      <button id="playbtn">▶ PLAY</button>
+      <div id="playcount"></div>
       <div class="roster">
         <div><img src="assets/spr/prez.png"><span>CYRIL<small>you</small></span></div>
         <div><img src="assets/spr/inspector.png"><span>INSPECTOR<small>the watchdog</small></span></div>
@@ -93,11 +95,9 @@
         <div class="cops"><div class="pair"><img src="assets/spr/cop.png"><img src="assets/spr/cop2.png"></div><span>THE COPS<small>roadblock</small></span></div>
         <div><img src="assets/spr/boss.png"><span>THE GUPTAS<small>state capture</small></span></div>
       </div>
-      <div id="playcount"></div>
-      <button id="playbtn">▶ PLAY</button>
-      <div class="cheatrow"><input id="cheat" placeholder="cheat code…" autocomplete="off" spellcheck="false"/><span id="cheatmsg"></span></div>
       <p class="ctrl">◀ ▶ move · JUMP · hold RUN to sprint · bump 💰 boxes · stomp enemies</p>
       <button id="fbbtn" class="fb">💬 Leave anonymous feedback</button>
+      <div class="cheatrow"><input id="cheat" placeholder="cheat code…" autocomplete="off" spellcheck="false"/><span id="cheatmsg"></span></div>
     </div>
   </div>
 </div>
@@ -290,7 +290,7 @@
   function endGame(win){if(won||lost)return;
     var ei=g('endimg');
     if(win){won=true;AUD.sfx('win');if(ei){ei.src='assets/bg/endart.jpg';ei.style.display='block';}var banked=depTotal||cash;g('ovt').textContent='🎉 THE PARTY WINS! 🎉';g('ovp').innerHTML='Cyril stuffs <b>R '+fmt(banked)+'</b> into the couch. 🛋️💵<br>The Commission sighs, the party sweeps the election <b>again</b>, and there are zero charges. 🇿🇦';}
-    else{lost=true;if(ei){ei.src='assets/bg/cyril_bust.jpg';ei.style.display='block';}g('ovt').textContent='😎 OFF TO "JAIL"';g('ovp').innerHTML='Reporter Corder broke the story — so Cyril checks into his five-star cell: champagne on ice, gold bars, zero charges. <b>Crime pays.</b> Run again and grab more.';}
+    else{lost=true;if(ei){ei.src='assets/bg/cyril_bust.jpg';ei.style.display='block';}g('ovt').textContent='😎 OFF SCOT-FREE';g('ovp').innerHTML='Reporter Corder broke the story — so Cyril retires to a five-star "retreat": champagne on ice, gold bars, zero charges. <b>Crime pays.</b> Run again and grab more.';}
     g('over').classList.add('show');
   }
 
@@ -307,10 +307,6 @@
   function share(){try{if(window.fetch)window.fetch('https://gravytrainza-counter.gravytrainza.workers.dev/share').catch(function(){});}catch(e){}var t='I looted R'+fmt(cash)+' in GRAVY TRAIN 🚂💰 — Cape Town’s great loot run. Beat me:';var u=location.href;if(navigator.share){navigator.share({title:'GRAVY TRAIN',text:t,url:u}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(t+' '+u),'_blank');}}
   g('ovs').addEventListener('click',share);
   g('ovs').addEventListener('touchstart',function(e){e.preventDefault();share();});
-  // Start-screen gag: flash the gleeful cash-grabbing Cyril against the laughing-in-luxury-jail Cyril.
-  (function(){var hi=g('heroimg');if(!hi||typeof setInterval!=='function')return;var imgs=['assets/bg/cyril_happy.jpg','assets/bg/cyril_bust.jpg'],fi=0;new Image().src=imgs[1];setInterval(function(){var st=g('start');if(!st||!st.classList.contains('show'))return;fi^=1;hi.src=imgs[fi];},950);})();
-  // Rotating satirical hook lines.
-  (function(){var h=g('hook');if(!h||typeof setInterval!=='function')return;var lines=["It's not stealing if you're connected.","Tender loving theft. 🇿🇦","Loot it all — win the election anyway.","Cadre deployment: the game.","Pay back the money? Never heard of it.","Jail? More like a five-star sabbatical."];var li=0;setInterval(function(){var st=g('start');if(!st||!st.classList.contains('show'))return;li=(li+1)%lines.length;h.textContent=lines[li];},2600);})();
   // Feedback → logged server-side for the (anonymous) creator.
   function sendFeedback(){var m=null;try{m=prompt('Leave ANONYMOUS feedback for the creator (no name, nothing tracked):');}catch(e){}if(!m||!m.trim())return;try{if(window.fetch)window.fetch('https://gravytrainza-counter.gravytrainza.workers.dev/feedback',{method:'POST',body:m.trim().slice(0,600)}).catch(function(){});}catch(e){}try{alert('Thanks! Your anonymous feedback was sent. 🙏');}catch(e){}}
   ['fbbtn','ovf'].forEach(function(id){var b=g(id);if(b){b.addEventListener('click',sendFeedback);b.addEventListener('touchstart',function(e){e.preventDefault();sendFeedback();});}});
