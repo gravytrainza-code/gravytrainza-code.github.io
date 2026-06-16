@@ -64,6 +64,8 @@
   #start #playbtn{height:58px;padding:0 46px;border-radius:14px;border:none;background:#007a4d;color:#fff;font-size:22px;font-weight:900;box-shadow:0 6px 0 #045236;}
   #start #playcount{display:none;margin:0 auto 12px;width:fit-content;font-size:13px;font-weight:800;color:#ffd23b;background:rgba(255,210,59,.12);border:1px solid rgba(255,210,59,.35);border-radius:20px;padding:5px 16px;letter-spacing:.4px;}
   #start .ctrl{font-size:11px;color:#7e93b8;margin-top:14px;}
+  .fb{margin-top:16px;background:rgba(255,255,255,.06);border:1px solid #3a4a6a;color:#9fb6d6;font-size:12px;font-weight:700;padding:9px 18px;border-radius:22px;cursor:pointer;}
+  .fb:active{background:rgba(255,255,255,.16);}
   #mute{position:absolute;top:46px;right:12px;width:34px;height:34px;border-radius:9px;background:rgba(20,24,40,.5);border:2px solid rgba(255,255,255,.45);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:20;}
 </style>
 </head>
@@ -74,14 +76,14 @@
   <div class="ov pad" id="move"><div class="btn" id="left">◀</div><div class="btn" id="right">▶</div></div>
   <div class="ov pad" id="act"><div class="btn" id="run">RUN</div><div class="btn" id="jump">JUMP</div></div>
   <div class="ov" id="mute">🔊</div>
-  <div class="ov" id="over"><img id="endimg" alt=""/><h1 id="ovt">CLEAR!</h1><p id="ovp">—</p><div class="row"><button id="ovb">Run again</button><button id="ovs" class="share">Share game</button></div></div>
+  <div class="ov" id="over"><img id="endimg" alt=""/><h1 id="ovt">CLEAR!</h1><p id="ovp">—</p><div class="row"><button id="ovb">Run again</button><button id="ovs" class="share">Share game</button></div><button id="ovf" class="fb">💬 Leave anonymous feedback</button></div>
   <div id="ld">loading…</div>
   <div id="start">
     <div id="startInner">
       <img id="heroimg" src="assets/bg/cyril_happy.jpg" alt="Cyril"/>
       <h1>GRAVY<span> TRAIN</span></h1>
       <p class="tag">🇿🇦 A CAPE TOWN LOOT RUN</p>
-      <p class="goal"><b>Keep Cyril out of jail.</b><br>Grab the loot · dodge the press · stuff the couch.</p>
+      <p class="goal"><b id="hook">It's not stealing if you're connected.</b><br>Grab the loot · dodge the press · stuff the couch.</p>
       <div class="roster">
         <div><img src="assets/spr/prez.png"><span>CYRIL<small>you</small></span></div>
         <div><img src="assets/spr/inspector.png"><span>INSPECTOR<small>the watchdog</small></span></div>
@@ -91,10 +93,11 @@
         <div class="cops"><div class="pair"><img src="assets/spr/cop.png"><img src="assets/spr/cop2.png"></div><span>THE COPS<small>roadblock</small></span></div>
         <div><img src="assets/spr/boss.png"><span>THE GUPTAS<small>state capture</small></span></div>
       </div>
-      <div class="cheatrow"><input id="cheat" placeholder="cheat code…" autocomplete="off" spellcheck="false"/><span id="cheatmsg"></span></div>
       <div id="playcount"></div>
       <button id="playbtn">▶ PLAY</button>
+      <div class="cheatrow"><input id="cheat" placeholder="cheat code…" autocomplete="off" spellcheck="false"/><span id="cheatmsg"></span></div>
       <p class="ctrl">◀ ▶ move · JUMP · hold RUN to sprint · bump 💰 boxes · stomp enemies</p>
+      <button id="fbbtn" class="fb">💬 Leave anonymous feedback</button>
     </div>
   </div>
 </div>
@@ -287,7 +290,7 @@
   function endGame(win){if(won||lost)return;
     var ei=g('endimg');
     if(win){won=true;AUD.sfx('win');if(ei){ei.src='assets/bg/endart.jpg';ei.style.display='block';}var banked=depTotal||cash;g('ovt').textContent='🎉 THE PARTY WINS! 🎉';g('ovp').innerHTML='Cyril stuffs <b>R '+fmt(banked)+'</b> into the couch. 🛋️💵<br>The Commission sighs, the party sweeps the election <b>again</b>, and there are zero charges. 🇿🇦';}
-    else{lost=true;if(ei)ei.style.display='none';g('ovt').textContent='BUSTED!';g('ovp').textContent='Reporter Corder broke the story and the Commission came knocking. Run faster, grab more.';}
+    else{lost=true;if(ei){ei.src='assets/bg/cyril_bust.jpg';ei.style.display='block';}g('ovt').textContent='😎 OFF TO "JAIL"';g('ovp').innerHTML='Reporter Corder broke the story — so Cyril checks into his five-star cell: champagne on ice, gold bars, zero charges. <b>Crime pays.</b> Run again and grab more.';}
     g('over').classList.add('show');
   }
 
@@ -304,8 +307,13 @@
   function share(){try{if(window.fetch)window.fetch('https://gravytrainza-counter.gravytrainza.workers.dev/share').catch(function(){});}catch(e){}var t='I looted R'+fmt(cash)+' in GRAVY TRAIN 🚂💰 — Cape Town’s great loot run. Beat me:';var u=location.href;if(navigator.share){navigator.share({title:'GRAVY TRAIN',text:t,url:u}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(t+' '+u),'_blank');}}
   g('ovs').addEventListener('click',share);
   g('ovs').addEventListener('touchstart',function(e){e.preventDefault();share();});
-  // Start-screen gag: flash the gleeful gold-teeth Cyril against the busted one. "Keep him out of jail."
+  // Start-screen gag: flash the gleeful cash-grabbing Cyril against the laughing-in-luxury-jail Cyril.
   (function(){var hi=g('heroimg');if(!hi||typeof setInterval!=='function')return;var imgs=['assets/bg/cyril_happy.jpg','assets/bg/cyril_bust.jpg'],fi=0;new Image().src=imgs[1];setInterval(function(){var st=g('start');if(!st||!st.classList.contains('show'))return;fi^=1;hi.src=imgs[fi];},950);})();
+  // Rotating satirical hook lines.
+  (function(){var h=g('hook');if(!h||typeof setInterval!=='function')return;var lines=["It's not stealing if you're connected.","Tender loving theft. 🇿🇦","Loot it all — win the election anyway.","Cadre deployment: the game.","Pay back the money? Never heard of it.","Jail? More like a five-star sabbatical."];var li=0;setInterval(function(){var st=g('start');if(!st||!st.classList.contains('show'))return;li=(li+1)%lines.length;h.textContent=lines[li];},2600);})();
+  // Feedback → logged server-side for the (anonymous) creator.
+  function sendFeedback(){var m=null;try{m=prompt('Leave ANONYMOUS feedback for the creator (no name, nothing tracked):');}catch(e){}if(!m||!m.trim())return;try{if(window.fetch)window.fetch('https://gravytrainza-counter.gravytrainza.workers.dev/feedback',{method:'POST',body:m.trim().slice(0,600)}).catch(function(){});}catch(e){}try{alert('Thanks! Your anonymous feedback was sent. 🙏');}catch(e){}}
+  ['fbbtn','ovf'].forEach(function(id){var b=g(id);if(b){b.addEventListener('click',sendFeedback);b.addEventListener('touchstart',function(e){e.preventDefault();sendFeedback();});}});
 
   // ===================== PHYSICS =====================
   function moveX(){P.x+=P.vx;var dir=P.vx>0?1:-1;if(P.vx!==0){var ahead=dir>0?P.x+P.w:P.x;if(solidAt(ahead,P.y+2)||solidAt(ahead,P.y+P.h-2)||solidAt(ahead,P.y+P.h/2)){var tx=Math.floor(ahead/TILE);P.x=dir>0?tx*TILE-P.w-0.01:(tx+1)*TILE+0.01;P.vx=0;}}}
