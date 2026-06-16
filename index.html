@@ -48,14 +48,14 @@
   #ld{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:800;background:#0a1326;}
   #start{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 0%,#16264f 0%,#0a1326 55%);overflow-y:auto;display:none;align-items:flex-start;justify-content:center;z-index:50;}
   #start.show{display:flex;}
-  #start,#start *,#cmts,#cmts *{font-family:'Inter','Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;}
+  #start,#start *,#over,#over *{font-family:'Inter','Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;}
   #startInner{max-width:520px;width:100%;padding:18px 18px 42px;text-align:center;color:#d7e3f7;}
   #heroimg{width:100%;border-radius:18px;display:block;box-shadow:0 14px 40px rgba(0,0,0,.5);}
   #start h1{font-size:40px;font-weight:900;color:#ffd23b;letter-spacing:.5px;margin-top:16px;}
   #start h1 span{color:#3fc06a;}
   #start .tag{color:#ffd23b;font-size:21px;font-weight:800;letter-spacing:1.5px;margin:4px 0 12px;}
   #start .goal{font-size:15px;line-height:1.55;margin:0 auto 20px;max-width:470px;color:#9fb6d6;font-weight:500;}
-  #start #playbtn{height:64px;padding:0 56px;border-radius:18px;border:none;background:linear-gradient(180deg,#19c279,#067a47);color:#fff;font-size:24px;font-weight:800;letter-spacing:.5px;box-shadow:0 12px 28px rgba(8,170,98,.45);cursor:pointer;transition:transform .08s;}
+  #start #playbtn{display:block;width:fit-content;height:64px;padding:0 56px;border-radius:18px;border:none;background:linear-gradient(180deg,#19c279,#067a47);color:#fff;font-size:24px;font-weight:800;letter-spacing:.5px;box-shadow:0 12px 28px rgba(8,170,98,.45);cursor:pointer;transition:transform .08s;margin:16px auto 30px;}
   #start #playbtn:active{transform:translateY(2px);}
   #start #playcount{display:none;margin:14px auto 0;width:fit-content;font-size:13px;font-weight:700;color:#ffd23b;background:rgba(255,210,59,.12);border:1px solid rgba(255,210,59,.3);border-radius:20px;padding:6px 16px;}
   #start .social{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0 24px;}
@@ -252,7 +252,7 @@
     function sgn(c,txt){if(gtop(c)==null)return;props.push({type:'sign',x:c*TILE,y:gtop(c)*TILE,t:txt});}
     function prop(c,type){if(gtop(c)==null)return;props.push({type:type,x:c*TILE,y:gtop(c)*TILE});}
     function haz(c,type){if(gtop(c)==null)return;hazards.push({type:type,x:c*TILE,y:gtop(c)*TILE,ph:rng()*6});}
-    sgn(10,'LONG ST');prop(20,'tender');prop(36,'ballot');
+    sgn(5,'LONG ST');prop(20,'tender');prop(36,'ballot');
     sgn(46,'MUIZENBERG');prop(52,'umbrella');prop(64,'deckchair');haz(70,'ball');prop(82,'umbrella');
     sgn(90,'MOUILLE POINT');prop(112,'deckchair');prop(126,'ballot');
     sgn(134,'ESKOM');prop(140,'solar');haz(146,'coal');prop(156,'inverter');haz(162,'wire');prop(168,'solar');sgn(158,'LOAD SHEDDING');
