@@ -346,11 +346,13 @@
   function setCmtN(n){var a=g('cmtN');if(a)a.textContent=(n||0);}
   function renderComments(items){var l=g('cmtroll');if(!l)return;l.innerHTML='';if(!items||!items.length){var e=document.createElement('div');e.className='empty';e.textContent='No comments yet — be the first to say something.';l.appendChild(e);return;}items.concat(items).forEach(function(c){var d=document.createElement('div');d.className='c';d.textContent=c.m;l.appendChild(d);});}
   function loadComments(force){if(!window.fetch)return;window.fetch(CT+'/comments').then(function(r){return r.json();}).then(function(d){if(!d)return;setCmtN(d.count);if(force||d.count!==lastN){lastN=d.count;renderComments(d.items);}}).catch(function(){});}
-  function postComment(boxId){var b=g(boxId);if(!b)return;var v=(b.value||'').trim();if(!v)return;if(window.fetch)window.fetch(CT+'/comment',{method:'POST',body:v.slice(0,280)}).then(function(){b.value='';loadComments(true);}).catch(function(){});}
+  var posting=false;
+  function postComment(boxId,btnId){if(posting)return;var b=g(boxId);if(!b)return;var v=(b.value||'').trim();if(!v)return;var btn=btnId&&g(btnId);posting=true;b.value='';if(btn){btn.disabled=true;btn.textContent='✓ Posted!';}function done(){if(typeof setTimeout==='function')setTimeout(function(){posting=false;if(btn){btn.disabled=false;btn.textContent='Post';}},1600);else{posting=false;if(btn){btn.disabled=false;btn.textContent='Post';}}}if(window.fetch){window.fetch(CT+'/comment',{method:'POST',body:v.slice(0,280)}).then(function(){loadComments(true);}).catch(function(){}).then(done);}else done();}
   function reportProblem(){var m=null;try{m=prompt('Report a problem to the developer (private, not public):');}catch(e){}if(!m||!m.trim())return;try{if(window.fetch)window.fetch(CT+'/feedback',{method:'POST',body:m.trim().slice(0,600)}).catch(function(){});}catch(e){}try{alert('Thanks — sent to the developer. 🙏');}catch(e){}}
   function bindBtn(id,fn){var b=g(id);if(b){b.addEventListener('click',fn);b.addEventListener('touchstart',function(e){e.preventDefault();fn();});}}
-  bindBtn('cmtpost',function(){postComment('cmtbox');});bindBtn('cmtpost2',function(){postComment('cmtbox2');});bindBtn('fbbtn',reportProblem);bindBtn('ovf',reportProblem);
-  ['cmtbox','cmtbox2'].forEach(function(id){var b=g(id);if(b&&b.addEventListener)b.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();postComment(id);}});});
+  bindBtn('cmtpost',function(){postComment('cmtbox','cmtpost');});bindBtn('cmtpost2',function(){postComment('cmtbox2','cmtpost2');});bindBtn('fbbtn',reportProblem);bindBtn('ovf',reportProblem);
+  var CBTN={cmtbox:'cmtpost',cmtbox2:'cmtpost2'};
+  ['cmtbox','cmtbox2'].forEach(function(id){var b=g(id);if(b&&b.addEventListener)b.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();postComment(id,CBTN[id]);}});});
   loadComments(true);
   var cmtPause=0;
   (function(){var w=g('cmtwin');if(w&&w.addEventListener){['pointerdown','touchstart','wheel','keydown'].forEach(function(ev){w.addEventListener(ev,function(){cmtPause=22;});});}})();
