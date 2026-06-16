@@ -8,11 +8,11 @@
 <title>GRAVY TRAIN — Cape Town's great loot run</title>
 <meta property="og:title" content="GRAVY TRAIN 🚂💰"/>
 <meta property="og:description" content="Cape Town's great loot run — grab the tenders, dodge the Commission, beat the state-capture Guptas. How much can you loot?"/>
-<meta property="og:image" content="https://gravytrainza-code.github.io/assets/og.jpg"/>
+<meta property="og:image" content="https://gravytrainza-code.github.io/assets/og.jpg?v=9"/>
 <meta property="og:url" content="https://gravytrainza-code.github.io/"/>
 <meta property="og:type" content="website"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://gravytrainza-code.github.io/assets/og.jpg"/>
+<meta name="twitter:image" content="https://gravytrainza-code.github.io/assets/og.jpg?v=9"/>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:'Courier New',monospace;}
   html,body{height:100%;overflow:hidden;background:#0a1326;touch-action:none;}
@@ -102,7 +102,7 @@
   <div id="ld">loading…</div>
   <div id="start">
     <div id="startInner">
-      <img id="heroimg" src="assets/bg/cyril_happy.jpg" alt="Cyril"/>
+      <img id="heroimg" src="assets/bg/cyril_happy.jpg?v=9" alt="Cyril"/>
       <h1>GRAVY<span> TRAIN</span></h1>
       <p class="tag">🇿🇦 A SOUTH AFRICAN LOOT RUN</p>
       <p class="goal">Grab the loot · dodge the press · stuff the couch.</p>
@@ -114,13 +114,13 @@
         <p class="cmtnote">Anonymous · unmoderated</p>
       </div>
       <div class="roster">
-        <div><img src="assets/spr/prez.png"><span>CYRIL<small>you</small></span></div>
-        <div><img src="assets/spr/bergie.png"><span>THE BERGIE<small>swipes your loot</small></span></div>
-        <div><img src="assets/spr/enemy.png"><span>REPORTER CORDER<small>breaks the story</small></span></div>
-        <div><img src="assets/spr/protester.png"><span>CITIZENS<small>stone throwers</small></span></div>
-        <div><img src="assets/spr/eff.png"><span>THE C.I.C.<small>red berets</small></span></div>
-        <div class="cops"><div class="pair"><img src="assets/spr/cop.png"><img src="assets/spr/cop2.png"></div><span>THE COPS<small>roadblock</small></span></div>
-        <div><img src="assets/spr/boss.png"><span>THE GUPTAS<small>state capture</small></span></div>
+        <div><img src="assets/spr/prez.png?v=9"><span>CYRIL<small>you</small></span></div>
+        <div><img src="assets/spr/bergie.png?v=9"><span>THE BERGIE<small>swipes your loot</small></span></div>
+        <div><img src="assets/spr/enemy.png?v=9"><span>REPORTER CORDER<small>breaks the story</small></span></div>
+        <div><img src="assets/spr/protester.png?v=9"><span>CITIZENS<small>stone throwers</small></span></div>
+        <div><img src="assets/spr/eff.png?v=9"><span>THE C.I.C.<small>red berets</small></span></div>
+        <div class="cops"><div class="pair"><img src="assets/spr/cop.png?v=9"><img src="assets/spr/cop2.png?v=9"></div><span>THE COPS<small>roadblock</small></span></div>
+        <div><img src="assets/spr/boss.png?v=9"><span>THE GUPTAS<small>state capture</small></span></div>
       </div>
       <p class="ctrl">◀ ▶ move · JUMP · hold RUN to sprint · bump 💰 boxes · stomp enemies</p>
       <div class="devrow"><button id="fbbtn">⚠ Report a problem to the developer</button></div>
@@ -138,10 +138,11 @@
   var HEART='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21S3 14.5 3 8.7C3 5.6 5.4 4 7.6 4 9.3 4 10.9 5 12 6.6 13.1 5 14.7 4 16.4 4 18.6 4 21 5.6 21 8.7 21 14.5 12 21 12 21z" fill="#e23b3b" stroke="#7a0a1c" stroke-width="1.2"/></svg>');
   // Pre-rendered Cape Town backdrop plates (AI-generated, one per zone). Loaded from same-origin
   // /assets/bg/. If a plate hasn't loaded yet the engine falls back to procedural art for that zone.
+  var AV='?v=9';  // asset cache-buster — BUMP THIS whenever any image in assets/ changes, so browsers fetch fresh
   var PLATE=[], PLATEKEYS=['city','muizenberg','seapoint','township','n1','parliament','mansion'];
-  PLATEKEYS.forEach(function(k,i){var im=new Image();im.src='assets/bg/'+k+'.jpg';PLATE[i]=im;});
+  PLATEKEYS.forEach(function(k,i){var im=new Image();im.src='assets/bg/'+k+'.jpg'+AV;PLATE[i]=im;});
   // AI-generated character sprites (transparent PNGs). Procedural figures stay as fallback.
-  var SPR={};['prez','enemy','inspector','cop','cop2','police_car','boss','protester','taxi','key','eff','couch','bergie'].forEach(function(k){var im=new Image();im.src='assets/spr/'+k+'.png';SPR[k]=im;});
+  var SPR={};['prez','enemy','inspector','cop','cop2','police_car','boss','protester','taxi','key','eff','couch','bergie'].forEach(function(k){var im=new Image();im.src='assets/spr/'+k+'.png'+AV;SPR[k]=im;});
   // ===================== AUDIO (Web Audio, self-contained — no files) =====================
   var AUD=(function(){
     var ac=null,muted=false,musicOn=false,mi=0;
@@ -318,8 +319,8 @@
   }
   function endGame(win){if(won||lost)return;
     var ei=g('endimg'),ov=g('over');
-    if(win){won=true;AUD.sfx('win');if(ei){ei.src='assets/bg/endart.jpg';ei.style.display='block';}var banked=depTotal||cash;g('ovt').textContent='🎉 THE PARTY WINS! 🎉';g('ovp').innerHTML='Cyril stuffs <b>R '+fmt(banked)+'</b> into the couch. 🛋️💵<br>The Commission sighs, the party sweeps the election <b>again</b>, and there are zero charges. 🇿🇦';g('ovb').textContent='▶ Play again';if(ov){ov.classList.remove('lost');ov.classList.add('won');}}
-    else{lost=true;if(ei){ei.src='assets/bg/cyril_bust.jpg';ei.style.display='block';}g('ovt').textContent='🚨 CAUGHT!';g('ovp').innerHTML='The mob grabbed Cyril and Reporter Corder ran the story — so he checks into his five-star "retreat": champagne, gold bars, zero charges. He\'ll be back. <b>Try again.</b>';g('ovb').textContent='↻ TRY AGAIN';if(ov){ov.classList.remove('won');ov.classList.add('lost');}}
+    if(win){won=true;AUD.sfx('win');if(ei){ei.src='assets/bg/endart.jpg'+AV;ei.style.display='block';}var banked=depTotal||cash;g('ovt').textContent='🎉 THE PARTY WINS! 🎉';g('ovp').innerHTML='Cyril stuffs <b>R '+fmt(banked)+'</b> into the couch. 🛋️💵<br>The Commission sighs, the party sweeps the election <b>again</b>, and there are zero charges. 🇿🇦';g('ovb').textContent='▶ Play again';if(ov){ov.classList.remove('lost');ov.classList.add('won');}}
+    else{lost=true;if(ei){ei.src='assets/bg/cyril_bust.jpg'+AV;ei.style.display='block';}g('ovt').textContent='🚨 CAUGHT!';g('ovp').innerHTML='The mob grabbed Cyril and Reporter Corder ran the story — so he checks into his five-star "retreat": champagne, gold bars, zero charges. He\'ll be back. <b>Try again.</b>';g('ovb').textContent='↻ TRY AGAIN';if(ov){ov.classList.remove('won');ov.classList.add('lost');}}
     g('over').classList.add('show');
   }
   // FINAL-LIFE CAPTURE: a mob storms in from both sides, grabs Cyril, fades to the end screen. Controls locked.
