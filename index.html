@@ -70,17 +70,18 @@
   #start .cheatrow{margin:24px 0 4px;}
   #start #cheat{padding:9px 12px;border-radius:10px;border:1px solid #2a3a5a;background:#101a30;color:#fff;font-family:monospace;width:160px;text-align:center;font-size:14px;}
   #start #cheatmsg{color:#3fd07a;font-size:12px;margin-left:8px;font-weight:800;}
-  #cmts{position:absolute;inset:0;background:rgba(8,12,24,.94);display:none;flex-direction:column;z-index:60;padding:16px 14px max(16px,env(safe-area-inset-bottom));color:#d7e3f7;}
-  #cmts.show{display:flex;}
-  #cmts h2{font-size:21px;font-weight:800;color:#ffd23b;text-align:center;margin-top:6px;}
-  #cmts .disc{font-size:11px;color:#8aa0c4;text-align:center;margin:5px 0 10px;}
-  #cmtlist{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;max-width:560px;width:100%;margin:0 auto;}
-  #cmtlist .c{background:rgba(40,56,90,.55);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:9px 12px;font-size:14px;line-height:1.4;color:#e6eefb;word-break:break-word;text-align:left;}
-  #cmtlist .empty{color:#8aa0c4;text-align:center;margin-top:26px;font-size:14px;}
-  #cmtbar{max-width:560px;width:100%;margin:10px auto 0;display:flex;gap:8px;}
-  #cmtbox{flex:1;padding:11px 12px;border-radius:12px;border:1px solid #2a3a5a;background:#101a30;color:#fff;font-size:14px;resize:none;height:46px;}
-  #cmts .post{background:linear-gradient(180deg,#19c279,#067a47);border:none;color:#fff;font-weight:800;font-size:14px;padding:0 20px;border-radius:12px;cursor:pointer;}
-  #cmts .close{background:rgba(255,255,255,.1);border:none;color:#d7e3f7;font-weight:700;font-size:14px;padding:12px;border-radius:12px;cursor:pointer;max-width:560px;width:100%;margin:10px auto 0;}
+  /* inline auto-scrolling comments feed (no modal) */
+  .cmtfeed{max-width:470px;width:100%;margin:0 auto 22px;}
+  .cmthd{font-size:12px;color:#9fb6d6;font-weight:700;text-align:center;margin-bottom:8px;letter-spacing:.3px;}
+  .cmtwin{height:96px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(20,30,52,.5);-webkit-mask-image:linear-gradient(180deg,transparent,#000 20%,#000 80%,transparent);mask-image:linear-gradient(180deg,transparent,#000 20%,#000 80%,transparent);}
+  .cmtroll{position:absolute;left:0;right:0;top:0;padding:8px 12px;display:flex;flex-direction:column;gap:7px;animation:cmtroll 26s linear infinite;}
+  .cmtwin:hover .cmtroll,.cmtwin:active .cmtroll{animation-play-state:paused;}
+  @keyframes cmtroll{from{transform:translateY(0);}to{transform:translateY(-50%);}}
+  .cmtroll .c{font-size:13px;color:#e6eefb;line-height:1.35;background:rgba(40,56,90,.5);border-radius:10px;padding:6px 11px;text-align:left;word-break:break-word;}
+  .cmtroll .empty{color:#8aa0c4;font-size:13px;text-align:center;padding:14px 6px;}
+  .cmtadd{display:flex;gap:8px;margin:10px auto 0;max-width:470px;width:100%;}
+  .cmtadd input{flex:1;padding:11px 13px;border-radius:12px;border:1px solid #2a3a5a;background:#101a30;color:#fff;font-size:13px;}
+  .cmtadd button{background:linear-gradient(180deg,#19c279,#067a47);border:none;color:#fff;font-weight:800;font-size:13px;padding:0 18px;border-radius:12px;cursor:pointer;}
   .fb{margin-top:16px;background:rgba(255,255,255,.06);border:1px solid #3a4a6a;color:#9fb6d6;font-size:12px;font-weight:700;padding:9px 18px;border-radius:22px;cursor:pointer;}
   .fb:active{background:rgba(255,255,255,.16);}
   #mute{position:absolute;top:46px;right:12px;width:34px;height:34px;border-radius:9px;background:rgba(20,24,40,.5);border:2px solid rgba(255,255,255,.45);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:20;}
@@ -93,15 +94,8 @@
   <div class="ov pad" id="move"><div class="btn" id="left">◀</div><div class="btn" id="right">▶</div></div>
   <div class="ov pad" id="act"><div class="btn" id="run">RUN</div><div class="btn" id="jump">JUMP</div></div>
   <div class="ov" id="mute">🔊</div>
-  <div class="ov" id="over"><img id="endimg" alt=""/><h1 id="ovt">CLEAR!</h1><p id="ovp">—</p><div class="row"><button id="ovb">Run again</button><button id="ovs" class="share">Share game</button></div><button id="ovc" class="fb">💬 Comments</button><button id="ovf" class="fb">⚠ Report a problem</button></div>
+  <div class="ov" id="over"><img id="endimg" alt=""/><h1 id="ovt">CLEAR!</h1><p id="ovp">—</p><div class="row"><button id="ovb">Run again</button><button id="ovs" class="share">Share game</button></div><div class="cmtadd"><input id="cmtbox2" maxlength="280" placeholder="💬 Leave a comment…" autocomplete="off"/><button id="cmtpost2">Post</button></div><button id="ovf" class="fb">⚠ Report a problem</button></div>
   <div id="ld">loading…</div>
-  <div id="cmts">
-    <h2>💬 What people are saying</h2>
-    <p class="disc">Public &amp; unmoderated — say something, keep it cheeky not cruel.</p>
-    <div id="cmtlist"></div>
-    <div id="cmtbar"><textarea id="cmtbox" maxlength="280" placeholder="Leave your comment…"></textarea><button class="post" id="cmtpost">Post</button></div>
-    <button class="close" id="cmtclose">Close</button>
-  </div>
   <div id="start">
     <div id="startInner">
       <img id="heroimg" src="assets/bg/cyril_happy.jpg" alt="Cyril"/>
@@ -110,7 +104,11 @@
       <p class="goal">Grab the loot · dodge the press · stuff the couch.</p>
       <button id="playbtn">▶ PLAY</button>
       <div id="playcount"></div>
-      <div class="social"><button id="cmtbtn">💬 Comments <span id="cmtN"></span></button></div>
+      <div class="cmtfeed">
+        <div class="cmthd">💬 <span id="cmtN">0</span> comments · public &amp; unmoderated</div>
+        <div class="cmtwin"><div id="cmtroll" class="cmtroll"></div></div>
+        <div class="cmtadd"><input id="cmtbox" maxlength="280" placeholder="Leave a comment…" autocomplete="off"/><button id="cmtpost">Post</button></div>
+      </div>
       <div class="roster">
         <div><img src="assets/spr/prez.png"><span>CYRIL<small>you</small></span></div>
         <div><img src="assets/spr/inspector.png"><span>INSPECTOR<small>the watchdog</small></span></div>
@@ -334,16 +332,17 @@
   g('ovs').addEventListener('touchstart',function(e){e.preventDefault();share();});
   // ===== Public comments (unmoderated) + private dev problem-report =====
   var CT='https://gravytrainza-counter.gravytrainza.workers.dev';
-  function setCmtN(n){var a=g('cmtN');if(a)a.textContent='('+(n||0)+')';}
-  function renderComments(items){var l=g('cmtlist');if(!l)return;l.innerHTML='';if(!items||!items.length){var e=document.createElement('div');e.className='empty';e.textContent='No comments yet — be the first to say something.';l.appendChild(e);return;}items.forEach(function(c){var d=document.createElement('div');d.className='c';d.textContent=c.m;l.appendChild(d);});}
-  function loadComments(render){if(!window.fetch)return;window.fetch(CT+'/comments').then(function(r){return r.json();}).then(function(d){if(!d)return;setCmtN(d.count);if(render)renderComments(d.items);}).catch(function(){});}
-  function openComments(){var o=g('cmts');if(o)o.classList.add('show');loadComments(true);}
-  function closeComments(){var o=g('cmts');if(o)o.classList.remove('show');}
-  function postComment(){var b=g('cmtbox');if(!b)return;var v=(b.value||'').trim();if(!v)return;if(window.fetch)window.fetch(CT+'/comment',{method:'POST',body:v.slice(0,280)}).then(function(){b.value='';loadComments(true);}).catch(function(){});}
+  var lastN=-1;
+  function setCmtN(n){var a=g('cmtN');if(a)a.textContent=(n||0);}
+  function renderComments(items){var l=g('cmtroll');if(!l)return;l.innerHTML='';if(!items||!items.length){var e=document.createElement('div');e.className='empty';e.textContent='No comments yet — be the first to say something.';l.appendChild(e);l.style.animation='none';return;}l.style.animation='';l.style.animationName='cmtroll';l.style.animationDuration=Math.max(14,items.length*3.5)+'s';items.concat(items).forEach(function(c){var d=document.createElement('div');d.className='c';d.textContent=c.m;l.appendChild(d);});}
+  function loadComments(force){if(!window.fetch)return;window.fetch(CT+'/comments').then(function(r){return r.json();}).then(function(d){if(!d)return;setCmtN(d.count);if(force||d.count!==lastN){lastN=d.count;renderComments(d.items);}}).catch(function(){});}
+  function postComment(boxId){var b=g(boxId);if(!b)return;var v=(b.value||'').trim();if(!v)return;if(window.fetch)window.fetch(CT+'/comment',{method:'POST',body:v.slice(0,280)}).then(function(){b.value='';loadComments(true);}).catch(function(){});}
   function reportProblem(){var m=null;try{m=prompt('Report a problem to the developer (private, not public):');}catch(e){}if(!m||!m.trim())return;try{if(window.fetch)window.fetch(CT+'/feedback',{method:'POST',body:m.trim().slice(0,600)}).catch(function(){});}catch(e){}try{alert('Thanks — sent to the developer. 🙏');}catch(e){}}
   function bindBtn(id,fn){var b=g(id);if(b){b.addEventListener('click',fn);b.addEventListener('touchstart',function(e){e.preventDefault();fn();});}}
-  bindBtn('cmtbtn',openComments);bindBtn('ovc',openComments);bindBtn('cmtpost',postComment);bindBtn('cmtclose',closeComments);bindBtn('fbbtn',reportProblem);bindBtn('ovf',reportProblem);
-  loadComments(false);
+  bindBtn('cmtpost',function(){postComment('cmtbox');});bindBtn('cmtpost2',function(){postComment('cmtbox2');});bindBtn('fbbtn',reportProblem);bindBtn('ovf',reportProblem);
+  ['cmtbox','cmtbox2'].forEach(function(id){var b=g(id);if(b&&b.addEventListener)b.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();postComment(id);}});});
+  loadComments(true);
+  if(typeof setInterval==='function')setInterval(function(){var st=g('start');if(st&&st.classList.contains('show'))loadComments(false);},30000);
 
   // ===================== PHYSICS =====================
   function moveX(){P.x+=P.vx;var dir=P.vx>0?1:-1;if(P.vx!==0){var ahead=dir>0?P.x+P.w:P.x;if(solidAt(ahead,P.y+2)||solidAt(ahead,P.y+P.h-2)||solidAt(ahead,P.y+P.h/2)){var tx=Math.floor(ahead/TILE);P.x=dir>0?tx*TILE-P.w-0.01:(tx+1)*TILE+0.01;P.vx=0;}}}
