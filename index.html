@@ -41,29 +41,46 @@
   #over button{height:52px;padding:0 24px;border-radius:14px;border:none;background:#007a4d;color:#fff;font-size:16px;font-weight:900;box-shadow:0 5px 0 #045236;}
   #over button.share{background:#ffb612;color:#1a1a1a;box-shadow:0 5px 0 #c98a00;}
   #ld{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:800;background:#0a1326;}
-  #start{position:absolute;inset:0;background:#0a1326;overflow-y:auto;display:none;align-items:flex-start;justify-content:center;z-index:50;}
+  #start{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 0%,#16264f 0%,#0a1326 55%);overflow-y:auto;display:none;align-items:flex-start;justify-content:center;z-index:50;}
   #start.show{display:flex;}
-  #startInner{max-width:520px;width:100%;padding:12px 16px 30px;text-align:center;color:#cfe0ff;}
-  #heroimg{width:100%;border-radius:12px;display:block;}
-  #start h1{font-size:34px;font-weight:900;color:#ffd23b;letter-spacing:2px;margin-top:8px;text-shadow:2px 2px 0 #00000060;}
-  #start h1 span{color:#3fa35a;}
-  #start .tag{color:#ffd23b;font-size:21px;font-weight:800;letter-spacing:2px;margin:4px 0 14px;}
-  #start .goal{font-size:14px;line-height:1.55;margin:0 auto 20px;max-width:470px;color:#cfe0ff;}
-  #start .goal b{display:inline-block;color:#ffd23b;font-size:21px;letter-spacing:.5px;margin-bottom:4px;text-shadow:2px 2px 0 #00000050;}
-  #start .roster{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 12px;margin-bottom:20px;}
-  #start .roster div{display:flex;flex-direction:column;align-items:center;width:30%;min-width:108px;background:rgba(20,32,54,.5);border-radius:12px;padding:14px 4px 10px;}
+  #start,#start *,#cmts,#cmts *{font-family:'Inter','Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;}
+  #startInner{max-width:520px;width:100%;padding:18px 18px 42px;text-align:center;color:#d7e3f7;}
+  #heroimg{width:100%;border-radius:18px;display:block;box-shadow:0 14px 40px rgba(0,0,0,.5);}
+  #start h1{font-size:40px;font-weight:900;color:#ffd23b;letter-spacing:.5px;margin-top:16px;}
+  #start h1 span{color:#3fc06a;}
+  #start .tag{color:#ffd23b;font-size:21px;font-weight:800;letter-spacing:1.5px;margin:4px 0 12px;}
+  #start .goal{font-size:15px;line-height:1.55;margin:0 auto 20px;max-width:470px;color:#9fb6d6;font-weight:500;}
+  #start #playbtn{height:64px;padding:0 56px;border-radius:18px;border:none;background:linear-gradient(180deg,#19c279,#067a47);color:#fff;font-size:24px;font-weight:800;letter-spacing:.5px;box-shadow:0 12px 28px rgba(8,170,98,.45);cursor:pointer;transition:transform .08s;}
+  #start #playbtn:active{transform:translateY(2px);}
+  #start #playcount{display:none;margin:14px auto 0;width:fit-content;font-size:13px;font-weight:700;color:#ffd23b;background:rgba(255,210,59,.12);border:1px solid rgba(255,210,59,.3);border-radius:20px;padding:6px 16px;}
+  #start .social{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0 24px;}
+  #start .social button{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);color:#e6eefb;font-size:13.5px;font-weight:700;padding:12px 20px;border-radius:14px;cursor:pointer;}
+  #start .social button:active{background:rgba(255,255,255,.18);}
+  #start .roster{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 12px;margin-bottom:18px;}
+  #start .roster div{display:flex;flex-direction:column;align-items:center;width:30%;min-width:108px;background:linear-gradient(180deg,rgba(40,56,90,.7),rgba(20,30,52,.55));border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:14px 4px 12px;box-shadow:0 8px 22px rgba(0,0,0,.3);}
   #start .roster img{height:96px;object-fit:contain;}
   #start .roster .cops{width:30%;}
   #start .roster .pair{display:flex;flex-direction:row;gap:6px;align-items:flex-end;justify-content:center;height:96px;}
   #start .roster .pair img{height:88px;}
   #start .roster span{display:flex;flex-direction:column;align-items:center;font-size:13px;font-weight:800;color:#ffd23b;margin-top:8px;line-height:1.25;text-align:center;}
   #start .roster small{font-size:10px;font-weight:400;color:#9fb6d6;margin-top:1px;}
-  #start .cheatrow{margin:26px 0 14px;}
-  #start #cheat{padding:8px 10px;border-radius:8px;border:2px solid #2a3a5a;background:#142036;color:#fff;font-family:monospace;width:150px;text-align:center;font-size:14px;}
+  #start .ctrl{font-size:11.5px;color:#7e93b8;margin-top:8px;}
+  #start .devrow{margin-top:18px;}
+  #start .devrow button{background:none;border:none;color:#6b7f9f;font-size:12px;font-weight:600;text-decoration:underline;cursor:pointer;}
+  #start .cheatrow{margin:24px 0 4px;}
+  #start #cheat{padding:9px 12px;border-radius:10px;border:1px solid #2a3a5a;background:#101a30;color:#fff;font-family:monospace;width:160px;text-align:center;font-size:14px;}
   #start #cheatmsg{color:#3fd07a;font-size:12px;margin-left:8px;font-weight:800;}
-  #start #playbtn{height:58px;padding:0 46px;border-radius:14px;border:none;background:#007a4d;color:#fff;font-size:22px;font-weight:900;box-shadow:0 6px 0 #045236;margin:6px 0 18px;}
-  #start #playcount{display:none;margin:0 auto 12px;width:fit-content;font-size:13px;font-weight:800;color:#ffd23b;background:rgba(255,210,59,.12);border:1px solid rgba(255,210,59,.35);border-radius:20px;padding:5px 16px;letter-spacing:.4px;}
-  #start .ctrl{font-size:11px;color:#7e93b8;margin-top:14px;}
+  #cmts{position:absolute;inset:0;background:rgba(8,12,24,.94);display:none;flex-direction:column;z-index:60;padding:16px 14px max(16px,env(safe-area-inset-bottom));color:#d7e3f7;}
+  #cmts.show{display:flex;}
+  #cmts h2{font-size:21px;font-weight:800;color:#ffd23b;text-align:center;margin-top:6px;}
+  #cmts .disc{font-size:11px;color:#8aa0c4;text-align:center;margin:5px 0 10px;}
+  #cmtlist{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;max-width:560px;width:100%;margin:0 auto;}
+  #cmtlist .c{background:rgba(40,56,90,.55);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:9px 12px;font-size:14px;line-height:1.4;color:#e6eefb;word-break:break-word;text-align:left;}
+  #cmtlist .empty{color:#8aa0c4;text-align:center;margin-top:26px;font-size:14px;}
+  #cmtbar{max-width:560px;width:100%;margin:10px auto 0;display:flex;gap:8px;}
+  #cmtbox{flex:1;padding:11px 12px;border-radius:12px;border:1px solid #2a3a5a;background:#101a30;color:#fff;font-size:14px;resize:none;height:46px;}
+  #cmts .post{background:linear-gradient(180deg,#19c279,#067a47);border:none;color:#fff;font-weight:800;font-size:14px;padding:0 20px;border-radius:12px;cursor:pointer;}
+  #cmts .close{background:rgba(255,255,255,.1);border:none;color:#d7e3f7;font-weight:700;font-size:14px;padding:12px;border-radius:12px;cursor:pointer;max-width:560px;width:100%;margin:10px auto 0;}
   .fb{margin-top:16px;background:rgba(255,255,255,.06);border:1px solid #3a4a6a;color:#9fb6d6;font-size:12px;font-weight:700;padding:9px 18px;border-radius:22px;cursor:pointer;}
   .fb:active{background:rgba(255,255,255,.16);}
   #mute{position:absolute;top:46px;right:12px;width:34px;height:34px;border-radius:9px;background:rgba(20,24,40,.5);border:2px solid rgba(255,255,255,.45);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:20;}
@@ -76,8 +93,15 @@
   <div class="ov pad" id="move"><div class="btn" id="left">◀</div><div class="btn" id="right">▶</div></div>
   <div class="ov pad" id="act"><div class="btn" id="run">RUN</div><div class="btn" id="jump">JUMP</div></div>
   <div class="ov" id="mute">🔊</div>
-  <div class="ov" id="over"><img id="endimg" alt=""/><h1 id="ovt">CLEAR!</h1><p id="ovp">—</p><div class="row"><button id="ovb">Run again</button><button id="ovs" class="share">Share game</button></div><button id="ovf" class="fb">💬 Leave anonymous feedback</button></div>
+  <div class="ov" id="over"><img id="endimg" alt=""/><h1 id="ovt">CLEAR!</h1><p id="ovp">—</p><div class="row"><button id="ovb">Run again</button><button id="ovs" class="share">Share game</button></div><button id="ovc" class="fb">💬 Comments</button><button id="ovf" class="fb">⚠ Report a problem</button></div>
   <div id="ld">loading…</div>
+  <div id="cmts">
+    <h2>💬 What people are saying</h2>
+    <p class="disc">Public &amp; unmoderated — say something, keep it cheeky not cruel.</p>
+    <div id="cmtlist"></div>
+    <div id="cmtbar"><textarea id="cmtbox" maxlength="280" placeholder="Leave your comment…"></textarea><button class="post" id="cmtpost">Post</button></div>
+    <button class="close" id="cmtclose">Close</button>
+  </div>
   <div id="start">
     <div id="startInner">
       <img id="heroimg" src="assets/bg/cyril_happy.jpg" alt="Cyril"/>
@@ -86,6 +110,7 @@
       <p class="goal">Grab the loot · dodge the press · stuff the couch.</p>
       <button id="playbtn">▶ PLAY</button>
       <div id="playcount"></div>
+      <div class="social"><button id="cmtbtn">💬 Comments <span id="cmtN"></span></button></div>
       <div class="roster">
         <div><img src="assets/spr/prez.png"><span>CYRIL<small>you</small></span></div>
         <div><img src="assets/spr/inspector.png"><span>INSPECTOR<small>the watchdog</small></span></div>
@@ -96,7 +121,7 @@
         <div><img src="assets/spr/boss.png"><span>THE GUPTAS<small>state capture</small></span></div>
       </div>
       <p class="ctrl">◀ ▶ move · JUMP · hold RUN to sprint · bump 💰 boxes · stomp enemies</p>
-      <button id="fbbtn" class="fb">💬 Leave anonymous feedback</button>
+      <div class="devrow"><button id="fbbtn">⚠ Report a problem to the developer</button></div>
       <div class="cheatrow"><input id="cheat" placeholder="cheat code…" autocomplete="off" spellcheck="false"/><span id="cheatmsg"></span></div>
     </div>
   </div>
@@ -231,7 +256,7 @@
     sgn(172,'N1 NORTH');prop(214,'tender');
     sgn(220,'PARLIAMENT');prop(238,'ballot');sgn(224,'PAY BACK THE MONEY');sgn(260,"PRESIDENT'S ESTATE");sgn(286,'PHALA PHALA');
     // comedy SA-corruption signage scattered through the run
-    sgn(30,'TENDERPRENEUR XING');sgn(84,'BLUE-LIGHT VIP ONLY');sgn(110,'CADRE DEPLOYMENT');sgn(166,'SAXONWOLD SHEBEEN');sgn(182,'POTHOLE PARKING');sgn(200,'TAXI RANK: HOOT 2X');sgn(262,'FIRE POOL 4 SECURITY');sgn(272,'DOLLARS IN THE COUCH');
+    sgn(30,'TENDERPRENEUR XING');sgn(84,'VIP CONVOY - MOVE!');sgn(110,'CADRE DEPLOYMENT');sgn(166,'SAXONWOLD SHEBEEN');sgn(182,'POTHOLE PARKING');sgn(200,'TAXI RANK: HOOT 2X');sgn(262,'FIRE POOL 4 SECURITY');sgn(272,'DOLLARS IN THE COUCH');
     [176,212].forEach(function(c){if(gtop(c)!=null)roadblocks.push({x:c*TILE,y:gtop(c)*TILE,taken:false});}); // N1 police roadblocks (flat ground only)
     [176,212].forEach(function(c){set(c-3,9,'=');set(c-2,9,'=');set(c,7,'=');set(c+1,7,'=');set(c+2,7,'=');}); // raised ramp+ledge to hop OVER each roadblock (skip the shakedown)
     for(var c=190;c<=202;c++)set(c,5,'=');                                                            // N1 overpass bridge deck
@@ -307,9 +332,18 @@
   function share(){try{if(window.fetch)window.fetch('https://gravytrainza-counter.gravytrainza.workers.dev/share').catch(function(){});}catch(e){}var t='I looted R'+fmt(cash)+' in GRAVY TRAIN 🚂💰 — Cape Town’s great loot run. Beat me:';var u=location.href;if(navigator.share){navigator.share({title:'GRAVY TRAIN',text:t,url:u}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(t+' '+u),'_blank');}}
   g('ovs').addEventListener('click',share);
   g('ovs').addEventListener('touchstart',function(e){e.preventDefault();share();});
-  // Feedback → logged server-side for the (anonymous) creator.
-  function sendFeedback(){var m=null;try{m=prompt('Leave ANONYMOUS feedback for the creator (no name, nothing tracked):');}catch(e){}if(!m||!m.trim())return;try{if(window.fetch)window.fetch('https://gravytrainza-counter.gravytrainza.workers.dev/feedback',{method:'POST',body:m.trim().slice(0,600)}).catch(function(){});}catch(e){}try{alert('Thanks! Your anonymous feedback was sent. 🙏');}catch(e){}}
-  ['fbbtn','ovf'].forEach(function(id){var b=g(id);if(b){b.addEventListener('click',sendFeedback);b.addEventListener('touchstart',function(e){e.preventDefault();sendFeedback();});}});
+  // ===== Public comments (unmoderated) + private dev problem-report =====
+  var CT='https://gravytrainza-counter.gravytrainza.workers.dev';
+  function setCmtN(n){var a=g('cmtN');if(a)a.textContent='('+(n||0)+')';}
+  function renderComments(items){var l=g('cmtlist');if(!l)return;l.innerHTML='';if(!items||!items.length){var e=document.createElement('div');e.className='empty';e.textContent='No comments yet — be the first to say something.';l.appendChild(e);return;}items.forEach(function(c){var d=document.createElement('div');d.className='c';d.textContent=c.m;l.appendChild(d);});}
+  function loadComments(render){if(!window.fetch)return;window.fetch(CT+'/comments').then(function(r){return r.json();}).then(function(d){if(!d)return;setCmtN(d.count);if(render)renderComments(d.items);}).catch(function(){});}
+  function openComments(){var o=g('cmts');if(o)o.classList.add('show');loadComments(true);}
+  function closeComments(){var o=g('cmts');if(o)o.classList.remove('show');}
+  function postComment(){var b=g('cmtbox');if(!b)return;var v=(b.value||'').trim();if(!v)return;if(window.fetch)window.fetch(CT+'/comment',{method:'POST',body:v.slice(0,280)}).then(function(){b.value='';loadComments(true);}).catch(function(){});}
+  function reportProblem(){var m=null;try{m=prompt('Report a problem to the developer (private, not public):');}catch(e){}if(!m||!m.trim())return;try{if(window.fetch)window.fetch(CT+'/feedback',{method:'POST',body:m.trim().slice(0,600)}).catch(function(){});}catch(e){}try{alert('Thanks — sent to the developer. 🙏');}catch(e){}}
+  function bindBtn(id,fn){var b=g(id);if(b){b.addEventListener('click',fn);b.addEventListener('touchstart',function(e){e.preventDefault();fn();});}}
+  bindBtn('cmtbtn',openComments);bindBtn('ovc',openComments);bindBtn('cmtpost',postComment);bindBtn('cmtclose',closeComments);bindBtn('fbbtn',reportProblem);bindBtn('ovf',reportProblem);
+  loadComments(false);
 
   // ===================== PHYSICS =====================
   function moveX(){P.x+=P.vx;var dir=P.vx>0?1:-1;if(P.vx!==0){var ahead=dir>0?P.x+P.w:P.x;if(solidAt(ahead,P.y+2)||solidAt(ahead,P.y+P.h-2)||solidAt(ahead,P.y+P.h/2)){var tx=Math.floor(ahead/TILE);P.x=dir>0?tx*TILE-P.w-0.01:(tx+1)*TILE+0.01;P.vx=0;}}}
