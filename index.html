@@ -47,16 +47,17 @@
   #heroimg{width:100%;border-radius:12px;display:block;}
   #start h1{font-size:34px;font-weight:900;color:#ffd23b;letter-spacing:2px;margin-top:8px;text-shadow:2px 2px 0 #00000060;}
   #start h1 span{color:#3fa35a;}
-  #start .tag{color:#9fb6d6;font-size:13px;margin-bottom:10px;}
-  #start .goal{font-size:13px;line-height:1.6;margin:0 auto 12px;max-width:470px;}
-  #start .roster{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 6px;margin-bottom:14px;}
-  #start .roster div{display:flex;flex-direction:column;align-items:center;width:19%;min-width:64px;background:rgba(20,32,54,.5);border-radius:10px;padding:6px 2px 5px;}
-  #start .roster img{height:48px;object-fit:contain;}
-  #start .roster .cops{width:30%;}
-  #start .roster .pair{display:flex;flex-direction:row;gap:5px;align-items:flex-end;justify-content:center;height:48px;}
-  #start .roster .pair img{height:46px;}
-  #start .roster span{display:flex;flex-direction:column;align-items:center;font-size:11px;font-weight:800;color:#ffd23b;margin-top:4px;line-height:1.25;text-align:center;}
-  #start .roster small{font-size:9px;font-weight:400;color:#9fb6d6;}
+  #start .tag{color:#ffd23b;font-size:15px;font-weight:800;letter-spacing:3px;margin:2px 0 14px;}
+  #start .goal{font-size:14px;line-height:1.55;margin:0 auto 20px;max-width:470px;color:#cfe0ff;}
+  #start .goal b{display:inline-block;color:#ffd23b;font-size:21px;letter-spacing:.5px;margin-bottom:4px;text-shadow:2px 2px 0 #00000050;}
+  #start .roster{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 12px;margin-bottom:20px;}
+  #start .roster div{display:flex;flex-direction:column;align-items:center;width:29%;min-width:96px;background:rgba(20,32,54,.5);border-radius:12px;padding:12px 4px 9px;}
+  #start .roster img{height:66px;object-fit:contain;}
+  #start .roster .cops{width:29%;}
+  #start .roster .pair{display:flex;flex-direction:row;gap:6px;align-items:flex-end;justify-content:center;height:66px;}
+  #start .roster .pair img{height:62px;}
+  #start .roster span{display:flex;flex-direction:column;align-items:center;font-size:13px;font-weight:800;color:#ffd23b;margin-top:8px;line-height:1.25;text-align:center;}
+  #start .roster small{font-size:10px;font-weight:400;color:#9fb6d6;margin-top:1px;}
   #start .cheatrow{margin-bottom:14px;}
   #start #cheat{padding:8px 10px;border-radius:8px;border:2px solid #2a3a5a;background:#142036;color:#fff;font-family:monospace;width:150px;text-align:center;font-size:14px;}
   #start #cheatmsg{color:#3fd07a;font-size:12px;margin-left:8px;font-weight:800;}
@@ -77,10 +78,10 @@
   <div id="ld">loading…</div>
   <div id="start">
     <div id="startInner">
-      <img id="heroimg" src="assets/bg/startart.jpg" alt=""/>
+      <img id="heroimg" src="assets/bg/cyril_happy.jpg" alt="Cyril"/>
       <h1>GRAVY<span> TRAIN</span></h1>
-      <p class="tag">Cape Town's great loot run 🚂💰</p>
-      <p class="goal">You're President <b>Cyril</b>. Loot every scam across Cape Town — the <b>Arms Deal</b>, <b>Gupta tenders</b>, <b>Eskom</b>, <b>SARS</b>, the <b>Estina dairy</b>. Dodge the Commission, the red berets, the roadblock shakedowns and the N1 traffic. Beat the <b>state-capture Guptas</b>, grab the key, and stuff the loot in the <b>couch</b> — then the party wins the election anyway. 🇿🇦</p>
+      <p class="tag">🇿🇦 A CAPE TOWN LOOT RUN</p>
+      <p class="goal"><b>Keep Cyril out of jail.</b><br>Grab the loot · dodge the press · stuff the couch.</p>
       <div class="roster">
         <div><img src="assets/spr/prez.png"><span>CYRIL<small>you</small></span></div>
         <div><img src="assets/spr/inspector.png"><span>INSPECTOR<small>the watchdog</small></span></div>
@@ -93,7 +94,7 @@
       <div class="cheatrow"><input id="cheat" placeholder="cheat code…" autocomplete="off" spellcheck="false"/><span id="cheatmsg"></span></div>
       <div id="playcount"></div>
       <button id="playbtn">▶ PLAY</button>
-      <p class="ctrl">◀ ▶ move · RUN to sprint · JUMP · bump R-boxes &amp; VOTE for loot · stomp enemies</p>
+      <p class="ctrl">◀ ▶ move · JUMP · hold RUN to sprint · bump 💰 boxes · stomp enemies</p>
     </div>
   </div>
 </div>
@@ -253,6 +254,7 @@
   var P={x:startX*TILE,y:startY*TILE,w:13,h:18,vx:0,vy:0,onG:false,face:1,anim:0};
   var cash=0,lives=4,won=false,lost=false,camX=0,camY=0,tick=0,invuln=0,immune=0,warpCool=0;
   var boss=null,arenaL=1e9,popups=[];
+  var BUSTWORDS=['REPORTED!','EXPOSED!','INDICTED!','SUBPOENA!','SCANDAL!','CAUGHT!'];
   var phase='play',depositT=0,depTotal=0,keyItem=null,hasKey=false,gateCols=[],depCouch=null;
   var projectiles=[],traffic=[],depCoins=[],movers=[];
   buildLevel();   // run AFTER all state vars exist so boss/gateCols/depCouch/traffic aren't reset to defaults
@@ -278,7 +280,7 @@
     if(immune>0){if(reason==='pit'){P.x=lastSafe.x;P.y=lastSafe.y;P.vx=0;P.vy=0;}return;} // immune: no damage (but pit still respawns you)
     AUD.sfx('hurt');
     if(god){invuln=45;if(reason==='pit'){P.x=lastSafe.x;P.y=lastSafe.y;P.vx=0;P.vy=0;}else{P.vy=-5;}return;}
-    lives--;buildLives();if(lives<=0){endGame(false);}else{P.x=lastSafe.x;P.y=lastSafe.y;P.vx=0;P.vy=0;invuln=45;}
+    lives--;buildLives();popups.push({x:P.x+P.w/2,y:P.y-12,t:BUSTWORDS[lives%BUSTWORDS.length],life:75,big:true,col:'#ff4d4d'});if(lives<=0){endGame(false);}else{P.x=lastSafe.x;P.y=lastSafe.y;P.vx=0;P.vy=0;invuln=45;}
   }
   function endGame(win){if(won||lost)return;
     var ei=g('endimg');
@@ -300,6 +302,8 @@
   function share(){try{if(window.fetch)window.fetch('https://gravytrainza-counter.gravytrainza.workers.dev/share').catch(function(){});}catch(e){}var t='I looted R'+fmt(cash)+' in GRAVY TRAIN 🚂💰 — Cape Town’s great loot run. Beat me:';var u=location.href;if(navigator.share){navigator.share({title:'GRAVY TRAIN',text:t,url:u}).catch(function(){});}else{window.open('https://wa.me/?text='+encodeURIComponent(t+' '+u),'_blank');}}
   g('ovs').addEventListener('click',share);
   g('ovs').addEventListener('touchstart',function(e){e.preventDefault();share();});
+  // Start-screen gag: flash the gleeful gold-teeth Cyril against the busted one. "Keep him out of jail."
+  (function(){var hi=g('heroimg');if(!hi||typeof setInterval!=='function')return;var imgs=['assets/bg/cyril_happy.jpg','assets/bg/cyril_bust.jpg'],fi=0;new Image().src=imgs[1];setInterval(function(){var st=g('start');if(!st||!st.classList.contains('show'))return;fi^=1;hi.src=imgs[fi];},950);})();
 
   // ===================== PHYSICS =====================
   function moveX(){P.x+=P.vx;var dir=P.vx>0?1:-1;if(P.vx!==0){var ahead=dir>0?P.x+P.w:P.x;if(solidAt(ahead,P.y+2)||solidAt(ahead,P.y+P.h-2)||solidAt(ahead,P.y+P.h/2)){var tx=Math.floor(ahead/TILE);P.x=dir>0?tx*TILE-P.w-0.01:(tx+1)*TILE+0.01;P.vx=0;}}}
@@ -577,7 +581,7 @@
     jets.forEach(function(jt){var jx=jt.c*TILE+TILE/2,jy=jt.r*TILE+TILE/2+Math.sin(tick/14)*1.5;ctx.save();ctx.translate(jx,jy);ctx.fillStyle='rgba(120,200,255,'+(0.2+0.16*Math.abs(Math.sin(tick/10)))+')';ctx.beginPath();ctx.arc(0,0,10,0,7);ctx.fill();ctx.fillStyle='#eef2f7';ctx.fillRect(-7,-1.6,13,3.2);ctx.beginPath();ctx.moveTo(6,-1.6);ctx.lineTo(10,0);ctx.lineTo(6,1.6);ctx.closePath();ctx.fill();ctx.fillStyle='#c4ccd4';ctx.beginPath();ctx.moveTo(-1,0);ctx.lineTo(-5,-5);ctx.lineTo(-2,0);ctx.closePath();ctx.fill();ctx.beginPath();ctx.moveTo(-1,0);ctx.lineTo(-5,5);ctx.lineTo(-2,0);ctx.closePath();ctx.fill();ctx.fillStyle='#3a3f45';ctx.beginPath();ctx.moveTo(-7,0);ctx.lineTo(-9,-3);ctx.lineTo(-6,0);ctx.closePath();ctx.fill();ctx.restore();if(jt.kind==='in'){ctx.fillStyle='#ffd23b';ctx.font='bold 5px monospace';ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.fillText('✈ RIDE THE JET',jx,jy-11);}});
     if(jets.length){ctx.fillStyle='#ffd23b';ctx.font='bold 6px monospace';ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.fillText('✈ DUBAI VAULT',46*TILE,TILE-3);}
     enemyE.forEach(function(e){if(!e.alive)return;drawEnemy(e);});
-    traffic.forEach(function(t){var im=SPR.taxi;if(im&&im.complete&&im.naturalWidth){var dw=t.h*(im.naturalWidth/im.naturalHeight);ctx.save();ctx.translate(t.x+t.w/2,t.y+t.h);if(t.vx>0)ctx.scale(-1,1);ctx.drawImage(im,-dw/2,-t.h,dw,t.h);ctx.restore();}else{ctx.fillStyle='#f4f4f4';ctx.fillRect(t.x,t.y,t.w,t.h);}});
+    traffic.forEach(function(t){var im=SPR.taxi;var bob=Math.sin((tick+t.x)/8)*1.4;if(im&&im.complete&&im.naturalWidth){var dw=t.h*(im.naturalWidth/im.naturalHeight);ctx.save();ctx.translate(t.x+t.w/2,t.y+t.h+bob);if(t.vx>0)ctx.scale(-1,1);ctx.drawImage(im,-dw/2,-t.h,dw,t.h);ctx.restore();}else{ctx.fillStyle='#f4f4f4';ctx.fillRect(t.x,t.y+bob,t.w,t.h);}});
     projectiles.forEach(function(pr){ctx.fillStyle='#6b6b6b';ctx.beginPath();ctx.arc(pr.x,pr.y,2.6,0,7);ctx.fill();ctx.fillStyle='#454545';ctx.beginPath();ctx.arc(pr.x-0.6,pr.y-0.6,1,0,7);ctx.fill();});
     if(boss&&!boss.dead){var bi=SPR.boss,fl=(boss.hit>0&&Math.floor(boss.hit/3)%2);
       if(bi&&bi.complete&&bi.naturalWidth){var dw=boss.h*(bi.naturalWidth/bi.naturalHeight);ctx.save();ctx.globalAlpha=fl?0.45:1;ctx.translate(boss.x+boss.w/2,boss.y+boss.h);if(boss.vx>0)ctx.scale(-1,1);ctx.drawImage(bi,-dw/2,-boss.h,dw,boss.h);ctx.restore();}
@@ -588,7 +592,7 @@
       ctx.fillStyle='rgba(10,12,20,.82)';ctx.fillRect(lbx-lw/2-4,lby-7,lw+8,13);
       ctx.fillStyle='#ffd23b';ctx.fillText(lt,lbx,lby);
       ctx.font='bold 5px monospace';ctx.fillStyle='#9fb6d6';ctx.fillText('STATE CAPTURE',lbx,lby+5);}
-    popups.forEach(function(pp){ctx.fillStyle='#ff5a5a';ctx.font='bold 8px monospace';ctx.textAlign='center';ctx.textBaseline='alphabetic';ctx.fillText(pp.t,pp.x,pp.y);});
+    popups.forEach(function(pp){var fs=pp.big?13:8;ctx.font='bold '+fs+'px monospace';ctx.textAlign='center';ctx.textBaseline='alphabetic';if(pp.big){ctx.lineWidth=3;ctx.strokeStyle='#2a0000';ctx.strokeText(pp.t,pp.x,pp.y);}ctx.fillStyle=pp.col||'#ff5a5a';ctx.fillText(pp.t,pp.x,pp.y);});
     drawPrez();
     ctx.restore();
     // vignette
