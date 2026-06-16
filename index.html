@@ -394,7 +394,7 @@
     if(P.y>LH+40){hurt('pit');}
     var viewW=cv.width/SCALE, viewH=cv.height/SCALE;
     camX=Math.max(0,Math.min(LW-viewW,P.x+P.w/2-viewW/2));
-    if(LH<=viewH)camY=LH-viewH; else camY=Math.max(0,Math.min(LH-viewH,P.y+P.h/2-viewH/2));
+    if(LH<=viewH)camY=11*TILE-viewH*0.80; else camY=Math.max(0,Math.min(LH-viewH,P.y+P.h/2-viewH/2)); // tall screens: anchor the GROUND ~80% down so more backdrop shows above it
     updZone();
     coinE.forEach(function(o){if(o.got)return;o.ph+=0.15;if(o.pop){o.pop--;o.y-=1.4;if(o.pop<=0)o.got=true;return;}if(P.x<o.x+12&&P.x+P.w>o.x&&P.y<o.y+14&&P.y+P.h>o.y){o.got=true;cash+=100;updHUD();AUD.sfx('coin');}});
     heartE.forEach(function(o){if(o.got)return;if(P.x<o.x+16&&P.x+P.w>o.x&&P.y<o.y+16&&P.y+P.h>o.y){o.got=true;if(lives<5){lives++;buildLives();}}});
