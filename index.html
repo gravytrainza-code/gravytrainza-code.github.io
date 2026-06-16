@@ -227,6 +227,8 @@
     sgn(134,'ESKOM');prop(140,'solar');haz(146,'coal');prop(156,'inverter');haz(162,'wire');prop(168,'solar');sgn(158,'LOAD SHEDDING');
     sgn(172,'N1 NORTH');prop(214,'tender');
     sgn(220,'PARLIAMENT');prop(238,'ballot');sgn(224,'PAY BACK THE MONEY');sgn(260,"PRESIDENT'S ESTATE");sgn(286,'PHALA PHALA');
+    // comedy SA-corruption signage scattered through the run
+    sgn(30,'TENDERPRENEUR XING');sgn(84,'BLUE-LIGHT VIP ONLY');sgn(110,'CADRE DEPLOYMENT');sgn(150,'LOADSHEDDING STAGE 6');sgn(182,'POTHOLE PARKING');sgn(200,'TAXI RANK: HOOT 2X');
     [176,212].forEach(function(c){if(gtop(c)!=null)roadblocks.push({x:c*TILE,y:gtop(c)*TILE,taken:false});}); // N1 police roadblocks (flat ground only)
     [176,212].forEach(function(c){set(c-3,9,'=');set(c-2,9,'=');set(c,7,'=');set(c+1,7,'=');set(c+2,7,'=');}); // raised ramp+ledge to hop OVER each roadblock (skip the shakedown)
     for(var c=190;c<=202;c++)set(c,5,'=');                                                            // N1 overpass bridge deck
